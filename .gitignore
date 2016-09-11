@@ -1,0 +1,9 @@
+bin
+classes
+Thumbs.db
+.gradle/
+build/
+*.iml
+*.ipr
+*.iws
+.idea/
