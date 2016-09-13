@@ -29,3 +29,10 @@ mysql -h 127.0.0.1 -P 3306 -u databaseuser -p odf_edit_sample
 ```SQL
 show variables like "chara%";
 ```
+
+## Gradleコマンド
+
+./gradlew clean compileJava
+./gradlew clean jar
+./gradlew bootRun
+./
