@@ -14,12 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @EnableAutoConfiguration
 public class Example {
 
-    /**
-     * 処理を実行します。
-     *
-     * @param args 引数
-     * @throws Exception 例外が発生した場合
-     */
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Example.class, args);
     }
@@ -29,4 +23,5 @@ public class Example {
         model.addAttribute("name", name);
         return "hello";
     }
+
 }
