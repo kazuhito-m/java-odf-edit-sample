@@ -1,0 +1,7 @@
+CREATE DATABASE odf_edit_sample;
+CREATE USER 'databaseuser' IDENTIFIED BY 'databasepassword';
+GRANT ALL ON odf_edit_sample.* TO 'databaseuser' IDENTIFIED BY 'databasepassword';
+
+-- 一度コンソールを出て、接続し直してテスト。
+
+mysql -h 127.0.0.1 -P 3306 -u databaseuser -p odf_edit_sample
