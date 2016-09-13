@@ -4,3 +4,6 @@ spring:
     url: jdbc:mysql://127.0.0.1/odf_edit_sample
     username: databaseuser
     password: databasepassword
+doma:
+  dialect: mysql
+  sql-file-repository: no_cache

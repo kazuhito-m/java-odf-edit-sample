@@ -18,6 +18,13 @@ jar {
     version =  '0.0.1-SNAPSHOT'
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Doma用ファイルコピー設定。
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources
+
 repositories {
     jcenter()
     maven { url "http://repo.spring.io/snapshot" }
