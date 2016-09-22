@@ -6,4 +6,5 @@ spring:
     password: databasepassword
 doma:
   dialect: mysql
+  doma.naming: SNAKE_LOWER_CASE
   sql-file-repository: no_cache
