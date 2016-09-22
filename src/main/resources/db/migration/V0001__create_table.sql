@@ -1,5 +1,5 @@
 CREATE TABLE user (
-    id MEDIUMINT  NOT NULL AUTO_INCREMENT,
+    id MEDIUMINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),
     caption VARCHAR(255),
     mailAddress VARCHAR(255),
@@ -10,8 +10,8 @@ CREATE TABLE user (
 
 CREATE TABLE workresult_day (
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
-    user_id NOT NULL
-    result_date DATE NOT NULL ,
+    user_id MEDIUMINT NOT NULL,
+    result_date DATE NOT NULL,
     start_time TIME,
     end_time TIME,
     break_hour FLOAT,
