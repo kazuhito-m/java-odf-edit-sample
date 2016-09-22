@@ -30,4 +30,13 @@ public class UserDaoTest {
         assertThat(actual.isEmpty(), is(false));
     }
 
+    @Test
+    public void プライマリキーにてユーザを取得できる() {
+        // 実行
+        User actual = sut.selectById(1);
+        // 検証
+        assertThat(actual.id, is(1));
+        assertThat(actual.name.contains("Miura"), is(true));
+    }
+
 }

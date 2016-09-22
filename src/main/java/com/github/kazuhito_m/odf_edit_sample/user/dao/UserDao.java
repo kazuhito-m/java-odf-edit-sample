@@ -12,10 +12,15 @@ import java.util.List;
 @ConfigAutowireable
 @Dao
 public interface UserDao {
+
     @Select
     List<User> selectAll();
+
+    @Select
+    User selectById(Integer userId);
 
     @Insert
     @Transactional
     int insert(User User);
+
 }
