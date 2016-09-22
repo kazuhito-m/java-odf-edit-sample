@@ -1,7 +1,7 @@
 package com.github.kazuhito_m.odf_edit_sample;
 
 import com.github.kazuhito_m.odf_edit_sample.user.dao.UserDao;
-import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
+import com.github.kazuhito_m.odf_edit_sample.workresult.Workresult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 /**
  * 最小限のサンプルです。
  */
@@ -20,6 +18,9 @@ import java.util.List;
 @EnableAutoConfiguration
 @SpringBootApplication
 public class Example {
+
+    @Autowired
+    Workresult domain;
 
     @Autowired
     private UserDao userDao;
@@ -31,8 +32,7 @@ public class Example {
     @RequestMapping({"/", "/hello"})
     public String hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
 
-        List<User> users = userDao.selectAll();
-        String text = "Userの件数は" + users.size() + "件です。";
+        String text = domain.getUserCaption();
 
         model.addAttribute("name", text);
         return "hello";
