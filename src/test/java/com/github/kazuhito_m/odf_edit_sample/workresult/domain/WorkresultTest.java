@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -87,7 +88,7 @@ public class WorkresultTest {
     }
 
     @Test
-    public void ODSの印刷ファイルが作成取得出来る() {
+    public void ODSの印刷ファイルが作成取得出来る() throws IOException {
         // 実行
         File actual = sut.makeFileWorkresultReport("2015/03");
         // 検証

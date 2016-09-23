@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,7 +91,18 @@ public class Workresult {
         return "workresultReport" + month.replaceAll("\\/", "") + ".ods";
     }
 
-    public File makeFileWorkresultReport(String month) {
+    public File makeFileWorkresultReport(String month) throws IOException {
+        // 一時ファイル作成
+        File work = File.createTempFile("workresultReports", ".ods");
+        // テンプレートファイル取得
+        File template = getWorkresultTemplateFile();
+        // ファイルをコピー
+        Files.copy(template.toPath(), work.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        // 完成品ファイルを返す。
+        return work;
+    }
+
+    private File getWorkresultTemplateFile() {
         return new File(this.getClass().getResource("workresultTemplate.ods").getPath());
     }
 
