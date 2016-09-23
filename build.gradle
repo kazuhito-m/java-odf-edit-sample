@@ -38,6 +38,7 @@ dependencies {
     compile 'org.seasar.doma.boot:doma-spring-boot-starter:1.1.0'
     compile "org.flywaydb:flyway-core"
     compile "mysql:mysql-connector-java"
+    compile "org.springframework.boot:spring-boot-devtools"
     runtime 'com.h2database:h2'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'junit:junit:4.12'

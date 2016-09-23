@@ -29,13 +29,13 @@ public class Example {
         SpringApplication.run(Example.class, args);
     }
 
-    @RequestMapping({"/", "/hello"})
-    public String hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
+    @RequestMapping({"/", "/workresult"})
+    public String workresult(@RequestParam(value = "month", required = false, defaultValue = "") String month, Model model) {
 
         String text = domain.getUserCaption();
 
         model.addAttribute("name", text);
-        return "hello";
+        return "workresult";
     }
 
 }
