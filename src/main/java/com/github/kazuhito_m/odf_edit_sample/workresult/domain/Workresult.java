@@ -93,7 +93,12 @@ public class Workresult {
     }
 
     public File makeFileWorkresultReport(String month) throws IOException {
-        return reportMaker.makeReportFile();
+
+        // 画面と同じく、「月条件」でリストW取得する。」
+        List<WorkresultRow> rows = this.findWorkresultBy(month);
+        User user = this.getCurrentUser();
+        // 印刷専門家にファイル作成を依頼。
+        return reportMaker.makeReport(user, month, rows);
     }
 
 
