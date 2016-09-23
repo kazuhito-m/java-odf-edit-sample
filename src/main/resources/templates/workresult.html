@@ -28,7 +28,8 @@
             <h2>Work Result List</h2>
         </div>
 
-        <form th:action="@{/workresult}" th:object="${form}" method="post" class="well form-inline">
+        <form th:action="@{/workresult}" th:object="${form}" method="post" class="well form-inline"
+              name="wrcond">
             User <input type="text" disabled="disabled" name="userCaption"
                         th:field="*{userCaption}"/> Month :
             <select class="form-control" th:field="*{month}" id="monthSelect">
@@ -37,6 +38,7 @@
                         th:text="${m}">
                 </option>
             </select>
+            <a href="#" id="dllink">Download Workresult Report</a>
         </form>
 
         <div class="row-fluid">
@@ -73,14 +75,18 @@
 <script>
 $(function($) {
     $('#monthSelect').change(function() {
-        var form = $(this).closest('form');
+        const form = $(this).closest('form');
         form.submit();
     });
+    $('#dllink').on('click',function(event) {
+        const form = document.wrcond;
+        const real = form.action; // われながら最悪なソースだと思ふ…
+        form.action='/dlworkresult';
+        form.submit();
+        form.action = real;
+        return false;
+    });
 });
-
-
-
-
 </script>
 
 </body>
