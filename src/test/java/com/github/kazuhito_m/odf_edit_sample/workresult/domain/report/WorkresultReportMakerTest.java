@@ -1,17 +1,13 @@
 package com.github.kazuhito_m.odf_edit_sample.workresult.domain.report;
 
 
-import com.github.kazuhito_m.odf_edit_sample.Example;
 import com.github.kazuhito_m.odf_edit_sample.fw.util.DateUtils;
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.view.WorkresultRow;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,8 +18,6 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Example.class})
 public class WorkresultReportMakerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkresultReportMakerTest.class);
