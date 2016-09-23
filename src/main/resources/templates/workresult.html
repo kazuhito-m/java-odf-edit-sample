@@ -28,15 +28,13 @@
             <h2>Work Result List</h2>
         </div>
 
-        <form class="well form-inline">
+        <form th:action="@{/result}" th:object="${form}" method="post" class="well form-inline">
             User <input type="text" disabled="disabled" name="userCaption"
                         th:field="*{userCaption}"/> Month :
-            <select class="form-control" name="month">
-                <option
-                        th:each="m : ${months}"
+            <select class="form-control" th:field="*{month}">
+                <option th:each="m : *{months}"
                         th:value="${m}"
-                        th:text="${m}"
-                        th:selected="${m} == *{month}">
+                        th:text="${m}">
                 </option>
             </select>
         </form>
