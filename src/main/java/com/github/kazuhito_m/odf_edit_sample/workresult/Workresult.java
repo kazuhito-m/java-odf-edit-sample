@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,12 +52,18 @@ public class Workresult {
         return months;
     }
 
-    private String convMonth(WorkresultDay day) {
-        if (!StringUtils.isEmpty(day.resultDate)) {
-            return (new SimpleDateFormat("yyyy/MM")).format(day.resultDate);
+    public List<WorkresultDay> findWorkresultBy(String month) {
+        try {
+            Date firstDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(month + "/01").getTime());
+            Date lastDay = getMonthLastDay(firstDay);
+
+            return workresultDayDao.selectByUserAndDay(getCurrentUser().id, firstDay, lastDay);
+
+        } catch (ParseException e) {
+            return Collections.emptyList();
         }
-        return "";
     }
+
 
     /**
      * 表示対象のユーザを取得する。
@@ -64,4 +73,29 @@ public class Workresult {
     protected User getCurrentUser() {
         return userDao.selectById(DEFAULT_USER_ID);
     }
+
+
+    /**
+     * 指定された日付の月の最終日を取得する。
+     *
+     * @param day 対象となる日。
+     * @return 計算し取得された月末日。
+     */
+    private Date getMonthLastDay(Date day) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(day);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.add(Calendar.MONTH, 1);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        return new Date(cal.getTimeInMillis());
+    }
+
+
+    private String convMonth(WorkresultDay day) {
+        if (!StringUtils.isEmpty(day.resultDate)) {
+            return (new SimpleDateFormat("yyyy/MM")).format(day.resultDate);
+        }
+        return "";
+    }
+
 }
