@@ -21,12 +21,20 @@ public interface WorkresultDayDao {
      * 勤怠履歴データをユーザと日付で絞り込んで取得する。
      *
      * @param userId ユーザID。
-     * @param from 開始日(当日含む)
-     * @param to 終了日(当日含む)
+     * @param from   開始日(当日含む)
+     * @param to     終了日(当日含む)
      * @return 絞りこまれた履歴データ
      */
     @Select
     List<WorkresultDay> selectByUserAndDay(Integer userId, Date from, Date to);
+
+    /**
+     * 勤怠履歴データをユーザと日付で絞り込んで取得する。
+     *
+     * @param userId ユーザID。
+     */
+    @Select
+    List<WorkresultDay> selectByUser(Integer userId);
 
     @Insert
     @Transactional

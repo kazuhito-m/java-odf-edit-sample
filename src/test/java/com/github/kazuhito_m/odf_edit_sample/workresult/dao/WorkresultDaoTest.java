@@ -64,4 +64,16 @@ public class WorkresultDaoTest {
         }
     }
 
+    @Test
+    public void 勤怠の履歴をユーザ指定で全件取得できる() throws ParseException {
+        // 実行
+        List<WorkresultDay> actual = sut.selectByUser(1);
+        // 検証
+        assertThat(actual.size() > 100, is(true));  // まあ、ゆうに100件は超えるだろう。
+        for (WorkresultDay day : actual) {
+            assertThat(day.userId, is(1));
+        }
+    }
+
+
 }
