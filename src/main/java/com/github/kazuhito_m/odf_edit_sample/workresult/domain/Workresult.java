@@ -83,6 +83,15 @@ public class Workresult {
         }
     }
 
+    /**
+     * 当月の「年/月」な文字列を返す。
+     *
+     * @return 作成された文字列。
+     */
+    public String getNowMonth() {
+        return getYmFmt().format(new java.util.Date());
+    }
+
     protected Map<Date, WorkresultRow> createBlankMapBy(Date from, Date to) {
         Map<Date, WorkresultRow> result = new LinkedHashMap<>();
         index = 1;
@@ -121,6 +130,8 @@ public class Workresult {
     }
 
 
+    // ユティリティメソッド。
+
     /**
      * 指定された日付の月の最終日を取得する。
      *
@@ -139,9 +150,14 @@ public class Workresult {
 
     private String convMonth(WorkresultDay day) {
         if (!StringUtils.isEmpty(day.resultDate)) {
-            return (new SimpleDateFormat("yyyy/MM")).format(day.resultDate);
+            return getYmFmt().format(day.resultDate);
         }
         return "";
     }
+
+    private SimpleDateFormat getYmFmt() {
+        return new SimpleDateFormat("yyyy/MM");
+    }
+
 
 }
