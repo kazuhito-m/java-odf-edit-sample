@@ -85,7 +85,7 @@ public class Workresult {
     }
 
     public String makeWorkresultReportDlName(String month) {
-        return "workresultReport" + month.replaceAll("\\/", "");
+        return "workresultReport" + month.replaceAll("\\/", "") + ".ods";
     }
 
     public File makeFileWorkresultReport(String month) {
