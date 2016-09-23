@@ -3,6 +3,7 @@ package com.github.kazuhito_m.odf_edit_sample.workresult.domain;
 import com.github.kazuhito_m.odf_edit_sample.user.dao.UserDao;
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.dao.WorkresultDayDao;
+import com.github.kazuhito_m.odf_edit_sample.workresult.domain.report.WorkresultReportMaker;
 import com.github.kazuhito_m.odf_edit_sample.workresult.entity.WorkresultDay;
 import com.github.kazuhito_m.odf_edit_sample.workresult.view.WorkresultRow;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +35,8 @@ public class Workresult {
 
     @Autowired
     private WorkresultDayDao workresultDayDao;
+
+    private WorkresultReportMaker reportMaker = new WorkresultReportMaker();
 
     private int index;  // TODO あとで対応。
 
@@ -92,18 +93,7 @@ public class Workresult {
     }
 
     public File makeFileWorkresultReport(String month) throws IOException {
-        // 一時ファイル作成
-        File work = File.createTempFile("workresultReports", ".ods");
-        // テンプレートファイル取得
-        File template = getWorkresultTemplateFile();
-        // ファイルをコピー
-        Files.copy(template.toPath(), work.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        // 完成品ファイルを返す。
-        return work;
-    }
-
-    private File getWorkresultTemplateFile() {
-        return new File(this.getClass().getResource("workresultTemplate.ods").getPath());
+        return reportMaker.makeReportFile();
     }
 
 
