@@ -53,6 +53,14 @@ public class Workresult {
         return months;
     }
 
+    /**
+     * 引数に指定された「年/月」の文字列から、当該月の勤怠データを取得する。<p/>
+     * <p>
+     * データが無い日には「空オブジェクト」を配して「しっかり一月分のリスト(30日前後）」として出す。
+     *
+     * @param month 取得したい「年/月」の文字列。
+     * @return 当該データ。
+     */
     public List<WorkresultRow> findWorkresultBy(String month) {
         try {
             Date firstDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(month + "/01").getTime());
@@ -64,7 +72,10 @@ public class Workresult {
             // 空っぽの「1日〜月末」までの表示行を作成。
             Map<Date, WorkresultRow> blankRows = createBlankMapBy(firstDay, lastDay);
 
-            // TODO
+            // 日付で「キー当て」にいって、空っぽのものにDBの値を複写する。
+            srcs.stream().forEach(d -> blankRows.get(d.resultDate).refrect(d));
+
+            // ValuesをListに変換。
             return blankRows.values().stream().collect(toList());
 
         } catch (ParseException e) {
