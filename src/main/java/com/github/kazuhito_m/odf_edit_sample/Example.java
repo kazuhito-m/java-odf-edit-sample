@@ -32,9 +32,8 @@ public class Example {
     @RequestMapping({"/", "/workresult"})
     public String workresult(@RequestParam(value = "month", required = false, defaultValue = "") String month, Model model) {
 
-        String text = domain.getUserCaption();
+        model.addAttribute("userCaption", domain.getUserCaption());
 
-        model.addAttribute("name", text);
         return "workresult";
     }
 

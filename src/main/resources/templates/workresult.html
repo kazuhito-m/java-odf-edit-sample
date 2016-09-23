@@ -29,7 +29,8 @@
         </div>
 
         <form class="well form-inline">
-            User <input type="text" disabled="disabled"/> Month :
+            User <input type="text" disabled="disabled" name="userCaption"
+                        th:field="*{userCaption}"/> Month :
             <select class="form-control" name="month">
                 <option
                         th:each="m : ${months}"
