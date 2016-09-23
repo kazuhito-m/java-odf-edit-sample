@@ -1,7 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.workresult.view;
 
-import com.github.kazuhito_m.odf_edit_sample.workresult.Workresult;
-import com.github.kazuhito_m.odf_edit_sample.workresult.entity.WorkresultDay;
+import com.github.kazuhito_m.odf_edit_sample.workresult.domain.Workresult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ public class WorkresultController {
 
         List<String> months = domain.getMonths();
 
-        List<WorkresultDay> workresults = Collections.emptyList();
+        List<WorkresultRow> workresults = Collections.emptyList();
         if (months.contains(form.getMonth())) {
             workresults = domain.findWorkresultBy(form.getMonth());
         }

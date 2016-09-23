@@ -1,9 +1,10 @@
-package com.github.kazuhito_m.odf_edit_sample.workresult;
+package com.github.kazuhito_m.odf_edit_sample.workresult.domain;
 
 import com.github.kazuhito_m.odf_edit_sample.user.dao.UserDao;
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.dao.WorkresultDayDao;
 import com.github.kazuhito_m.odf_edit_sample.workresult.entity.WorkresultDay;
+import com.github.kazuhito_m.odf_edit_sample.workresult.view.WorkresultRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.util.StringUtils;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -52,16 +54,37 @@ public class Workresult {
         return months;
     }
 
-    public List<WorkresultDay> findWorkresultBy(String month) {
+    public List<WorkresultRow> findWorkresultBy(String month) {
         try {
             Date firstDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(month + "/01").getTime());
             Date lastDay = getMonthLastDay(firstDay);
 
-            return workresultDayDao.selectByUserAndDay(getCurrentUser().id, firstDay, lastDay);
+            List<WorkresultDay> srcs = workresultDayDao.selectByUserAndDay(getCurrentUser().id, firstDay, lastDay);
+
+            // TODO
+            return null;
 
         } catch (ParseException e) {
             return Collections.emptyList();
         }
+    }
+
+    public List<WorkresultRow> createBlankListBy(Date from, Date to) {
+        // TODO
+        return null;
+    }
+
+    protected List<Date> createDateList(Date from, Date to) {
+        List<Date> result = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(from);
+        Date day;
+        do {
+            day = new Date(cal.getTimeInMillis());
+            result.add(day);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+        } while (day.before(to));
+        return result;
     }
 
 

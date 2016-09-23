@@ -54,21 +54,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr th:each="row : ${workresults}">
                         <td>1</td>
-                        <td>2016/09/23</td>
-                        <td>09:00</td>
-                        <td>12:30</td>
-                        <td>1.5 h</td>
-                        <td>備考欄</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2016/09/23</td>
-                        <td>09:00</td>
-                        <td>12:30</td>
-                        <td>1.5 h</td>
-                        <td>備考欄</td>
+                        <td th:text="${row.resultDate}">2016/09/23</td>
+                        <td th:text="${row.startTime}">09:00</td>
+                        <td th:text="${row.endTime}">12:30</td>
+                        <td th:text="${row.breakHour}">1.5 h</td>
+                        <td th:text="${row.description}">備考欄</td>
                     </tr>
                     </tbody>
                 </table>
@@ -85,6 +77,9 @@ $(function($) {
         form.submit();
     });
 });
+
+
+
 </script>
 
 </body>
