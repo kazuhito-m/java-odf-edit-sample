@@ -28,10 +28,10 @@
             <h2>Work Result List</h2>
         </div>
 
-        <form th:action="@{/result}" th:object="${form}" method="post" class="well form-inline">
+        <form th:action="@{/workresult}" th:object="${form}" method="post" class="well form-inline">
             User <input type="text" disabled="disabled" name="userCaption"
                         th:field="*{userCaption}"/> Month :
-            <select class="form-control" th:field="*{month}">
+            <select class="form-control" th:field="*{month}" id="monthSelect">
                 <option th:each="m : *{months}"
                         th:value="${m}"
                         th:text="${m}">
@@ -77,6 +77,15 @@
     </div>
 
 </section>
+
+<script>
+$(function($) {
+    $('#monthSelect').change(function() {
+        var form = $(this).closest('form');
+        form.submit();
+    });
+});
+</script>
 
 </body>
 </html>
