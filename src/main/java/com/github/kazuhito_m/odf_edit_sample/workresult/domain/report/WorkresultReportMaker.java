@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class WorkresultReportMaker {
 
         sheet.getCellAt("I2").setValue(firstRow.resultDate);
         sheet.getCellAt("I8").setValue(user.name);
+        sheet.getCellAt("B12").setValue(firstRow.resultDate);
 
 
         int i = 11; // Cellの指定はXもYも同じで、０オリジンみたい。
@@ -40,20 +42,18 @@ public class WorkresultReportMaker {
             MutableCell mc = sheet.getCellAt(3, i);
 
             if (row.startTime != null) {
-                mc.setValue(new Date(row.startTime.getTime()));
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//                mc.setValue(sdf.format(row.startTime));
+                mc.setValue(Long.toString(row.startTime.getTime()));
             }
 
             mc = sheet.getCellAt(4, i);
             if (row.endTime != null) {
-                mc.setValue(new Date(row.endTime.getTime()));
+                mc.setValue("18:30");
             }
 
-
-//            mc.setValue("お文字列やたらいｋるんかい？");
-//            sheet.getCellAt(4, i).setValue(row.startTime);
             i++;
         }
-
 
         File work = File.createTempFile("workresultReports", ".ods");
         OOUtils.open(sheet.getSpreadSheet().saveAs(work));
