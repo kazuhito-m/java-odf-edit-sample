@@ -48,7 +48,7 @@ public class WorkresultTest {
         Date to = toSqlDate("2016/09/30");
 
         // 実行
-        List<Date> days = sut.createDateList(from, to);
+        List<Date> days = DateUtils.createDateList(from, to);
 
         // 検証
         assertThat(days.size(), is(30));
@@ -102,6 +102,5 @@ public class WorkresultTest {
     public Date toSqlDate(String day) throws ParseException {
         return DateUtils.toSqlDate(day);
     }
-
 
 }

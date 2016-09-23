@@ -15,9 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+import static com.github.kazuhito_m.odf_edit_sample.fw.util.DateUtils.getMonthLastDay;
+import static com.github.kazuhito_m.odf_edit_sample.fw.util.DateUtils.getYmFmt;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -75,6 +79,9 @@ public class Workresult {
             // DBから勤怠履歴データ取得。
             List<WorkresultDay> srcs = workresultDayDao.selectByUserAndDay(getCurrentUser().id, firstDay, lastDay);
 
+            // 9時間ズレ的なおかしなことになるので、日付整え処理。
+            timeTruncate(srcs);
+
             // 空っぽの「1日〜月末」までの表示行を作成。
             Map<Date, WorkresultRow> blankRows = createBlankMapBy(firstDay, lastDay);
 
@@ -88,6 +95,7 @@ public class Workresult {
             return Collections.emptyList();
         }
     }
+
 
     public String makeWorkresultReportDlName(String month) {
         return "workresultReport" + month.replaceAll("\\/", "") + ".ods";
@@ -112,30 +120,16 @@ public class Workresult {
         return getYmFmt().format(new java.util.Date());
     }
 
+
+    protected void timeTruncate(List<WorkresultDay> srcs) {
+        srcs.stream().forEach(i -> i.resultDate = DateUtils.timeTruncate(i.resultDate));
+    }
+
+
     protected Map<Date, WorkresultRow> createBlankMapBy(Date from, Date to) {
         Map<Date, WorkresultRow> result = new LinkedHashMap<>();
         index = 1;
-        createDateList(from, to).stream().map(o -> new WorkresultRow(index++, o)).forEach(row -> result.put(row.resultDate, row));
-        return result;
-    }
-
-    /**
-     * 範囲指定した「日付のタバ」を作成する。
-     *
-     * @param from 開始日。
-     * @param to   終了日。
-     * @return 作成した日付のリスト。
-     */
-    protected List<Date> createDateList(Date from, Date to) {
-        List<Date> result = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(from);
-        Date day;
-        do {
-            day = new Date(cal.getTimeInMillis());
-            result.add(day);
-            cal.add(Calendar.DAY_OF_MONTH, 1);
-        } while (day.before(to));
+        DateUtils.createDateList(from, to).stream().map(o -> new WorkresultRow(index++, o)).forEach(row -> result.put(row.resultDate, row));
         return result;
     }
 
@@ -149,23 +143,7 @@ public class Workresult {
         return userDao.selectById(DEFAULT_USER_ID);
     }
 
-
     // ユティリティメソッド。
-
-    /**
-     * 指定された日付の月の最終日を取得する。
-     *
-     * @param day 対象となる日。
-     * @return 計算し取得された月末日。
-     */
-    private Date getMonthLastDay(Date day) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(day);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.add(Calendar.MONTH, 1);
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        return new Date(cal.getTimeInMillis());
-    }
 
 
     private String convMonth(WorkresultDay day) {
@@ -174,10 +152,5 @@ public class Workresult {
         }
         return "";
     }
-
-    private SimpleDateFormat getYmFmt() {
-        return new SimpleDateFormat("yyyy/MM");
-    }
-
 
 }
