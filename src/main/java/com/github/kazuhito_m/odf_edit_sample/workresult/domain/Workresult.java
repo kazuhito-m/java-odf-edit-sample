@@ -12,10 +12,7 @@ import org.springframework.util.StringUtils;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -35,6 +32,8 @@ public class Workresult {
 
     @Autowired
     private WorkresultDayDao workresultDayDao;
+
+    private int index;  // TODO あとで対応。
 
     public String getUserCaption() {
         User user = getCurrentUser();
@@ -59,21 +58,34 @@ public class Workresult {
             Date firstDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(month + "/01").getTime());
             Date lastDay = getMonthLastDay(firstDay);
 
+            // DBから勤怠履歴データ取得。
             List<WorkresultDay> srcs = workresultDayDao.selectByUserAndDay(getCurrentUser().id, firstDay, lastDay);
 
+            // 空っぽの「1日〜月末」までの表示行を作成。
+            Map<Date, WorkresultRow> blankRows = createBlankMapBy(firstDay, lastDay);
+
             // TODO
-            return null;
+            return blankRows.values().stream().collect(toList());
 
         } catch (ParseException e) {
             return Collections.emptyList();
         }
     }
 
-    public List<WorkresultRow> createBlankListBy(Date from, Date to) {
-        // TODO
-        return null;
+    protected Map<Date, WorkresultRow> createBlankMapBy(Date from, Date to) {
+        Map<Date, WorkresultRow> result = new LinkedHashMap<>();
+        index = 1;
+        createDateList(from, to).stream().map(o -> new WorkresultRow(index++, o)).forEach(row -> result.put(row.resultDate, row));
+        return result;
     }
 
+    /**
+     * 範囲指定した「日付のタバ」を作成する。
+     *
+     * @param from 開始日。
+     * @param to   終了日。
+     * @return 作成した日付のリスト。
+     */
     protected List<Date> createDateList(Date from, Date to) {
         List<Date> result = new ArrayList<>();
         Calendar cal = Calendar.getInstance();

@@ -6,11 +6,12 @@ public class WorkresultRow extends WorkresultDay {
 
     public Integer lineNo = 0;
 
-    public WorkresultRow(int lineno, java.sql.Date resultDate) {
+    public WorkresultRow(int lineNo, java.sql.Date resultDate) {
+        this.lineNo = lineNo;
         this.resultDate = resultDate;
     }
 
-    public WorkresultRow(WorkresultDay src, int lineNo) {
+    public WorkresultRow(int lineNo, WorkresultDay src) {
         this.lineNo = lineNo;
         this.refrect(src);
     }
