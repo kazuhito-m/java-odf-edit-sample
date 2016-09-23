@@ -1,5 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.workresult.domain;
 
+import com.github.kazuhito_m.odf_edit_sample.fw.util.DateUtils;
 import com.github.kazuhito_m.odf_edit_sample.user.dao.UserDao;
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.dao.WorkresultDayDao;
@@ -68,7 +69,7 @@ public class Workresult {
      */
     public List<WorkresultRow> findWorkresultBy(String month) {
         try {
-            Date firstDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(month + "/01").getTime());
+            Date firstDay = new Date(DateUtils.getYmdFmt().parse(month + "/01").getTime());
             Date lastDay = getMonthLastDay(firstDay);
 
             // DBから勤怠履歴データ取得。
@@ -98,7 +99,7 @@ public class Workresult {
         List<WorkresultRow> rows = this.findWorkresultBy(month);
         User user = this.getCurrentUser();
         // 印刷専門家にファイル作成を依頼。
-        return reportMaker.makeReport(user, month, rows);
+        return reportMaker.makeReport(user, rows);
     }
 
 

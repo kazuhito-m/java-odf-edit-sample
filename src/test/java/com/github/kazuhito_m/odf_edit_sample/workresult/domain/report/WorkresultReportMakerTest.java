@@ -2,6 +2,7 @@ package com.github.kazuhito_m.odf_edit_sample.workresult.domain.report;
 
 
 import com.github.kazuhito_m.odf_edit_sample.Example;
+import com.github.kazuhito_m.odf_edit_sample.fw.util.DateUtils;
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.view.WorkresultRow;
 import org.junit.Before;
@@ -14,7 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -34,15 +36,16 @@ public class WorkresultReportMakerTest {
     }
 
     @Test
-    public void ODSファイルをテンプレートとして置き換える値が置き換えられる_一覧以外() throws IOException {
+    public void ODSファイルをテンプレートとして置き換える値が置き換えられる_一覧以外() throws IOException, ParseException {
         // 事前準備
         User user = new User();
         user.name = "Kazuhito Miura";
-        String month = "2016/09";
-        List<WorkresultRow> rows = Collections.emptyList();
+        List<WorkresultRow> rows = new ArrayList<>();
+        rows.add(new WorkresultRow(1, DateUtils.toSqlDate("2016/09/01")));
+        rows.add(new WorkresultRow(2, DateUtils.toSqlDate("2016/09/02")));
 
         // 実行
-        File actual = sut.makeReport(user, month, rows);
+        File actual = sut.makeReport(user, rows);
 
         // 検証
         assertThat(actual.exists(), is(true));
