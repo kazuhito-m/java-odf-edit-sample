@@ -13,7 +13,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.UnsupportedEncodingException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,16 +49,33 @@ public class WorkresultController {
     }
 
     @RequestMapping({"/dlworkresult"})
-    public ResponseEntity<byte[]> dlWorkresult(@ModelAttribute("form") ConditionForm form, Model model) throws UnsupportedEncodingException {
+    public ResponseEntity<byte[]> dlWorkresult(@ModelAttribute("form") ConditionForm form, Model model) throws IOException {
 
+        // 指定年月が不明なら、今月とする。
         if (StringUtils.isEmpty(form.getMonth())) {
             form.setMonth(domain.getNowMonth());
         }
 
+        // ファイルを作成。
+        String downloadName = domain.makeWorkresultReportDlName(form.getMonth());
+        File file = domain.makeFileWorkresultReport(form.getMonth());
+
+        return makeDownloadEntryForOds(file, downloadName);
+
+    }
+
+    protected ResponseEntity<byte[]> makeDownloadEntryForOds(File localFile, String downloadName) throws IOException {
+
+        // ファイルからバイナリ(Byte列)を取得。
+        FileSystem fs = FileSystems.getDefault();
+        Path path = fs.getPath(localFile.getCanonicalPath());
+        byte[] contents = Files.readAllBytes(path);
+
+        // ダウンロード用オブジェクトを作成。
         HttpHeaders h = new HttpHeaders();
-        h.add("Content-Type", "text/csv; charset=MS932");
-        h.setContentDispositionFormData("filename", "hoge.csv");
-        return new ResponseEntity<>(form.getMonth().getBytes("UTF-8"), h, HttpStatus.OK);
+        h.add("Content-Type", "application/vnd.oasis.opendocument.spreadsheet;");
+        h.setContentDispositionFormData("filename", downloadName);
+        return new ResponseEntity<>(contents, h, HttpStatus.OK);
 
     }
 

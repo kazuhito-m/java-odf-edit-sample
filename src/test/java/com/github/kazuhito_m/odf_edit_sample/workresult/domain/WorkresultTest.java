@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -82,6 +83,15 @@ public class WorkresultTest {
             assertThat(row.resultDate, is(notNullValue()));
             assertThat(row.startTime, is(nullValue()));
         }
+
+    }
+
+    @Test
+    public void ODSの印刷ファイルが作成取得出来る() {
+        // 実行
+        File actual = sut.makeFileWorkresultReport("2015/03");
+        // 検証
+        assertThat("今はファイルがある程度", actual.exists(), is(true));
 
     }
 

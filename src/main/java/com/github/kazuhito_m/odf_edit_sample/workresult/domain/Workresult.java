@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,6 +83,15 @@ public class Workresult {
             return Collections.emptyList();
         }
     }
+
+    public String makeWorkresultReportDlName(String month) {
+        return "workresultReport" + month.replaceAll("\\/", "");
+    }
+
+    public File makeFileWorkresultReport(String month) {
+        return new File(this.getClass().getResource("workresultTemplate.ods").getPath());
+    }
+
 
     /**
      * 当月の「年/月」な文字列を返す。
