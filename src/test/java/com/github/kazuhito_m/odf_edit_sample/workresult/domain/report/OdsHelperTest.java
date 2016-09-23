@@ -25,7 +25,7 @@ public class OdsHelperTest {
     @Test
     public void JavaのDateの内部保持値をODSをの内部保持値に変換を試みる() {
         assertThat(sut.convJavaDateToExcelDateValue(1800000L), is(bd("0.39583333333333319400")));
-//        assertThat(sut.convJavaDateToExcelDateValue(1800000L), is(bd("0.5625")));
+        assertThat(sut.convJavaDateToExcelDateValue(16200000L), is(bd("0.56249999999999980200")));
     }
 
     private BigDecimal bd(String value) {

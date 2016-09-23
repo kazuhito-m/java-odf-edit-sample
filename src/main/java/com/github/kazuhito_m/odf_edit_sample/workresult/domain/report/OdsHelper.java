@@ -30,13 +30,15 @@ public class OdsHelper {
      * @param dateTimeValue Javaで取り出した日付値。Date.getTime() からの値を期待。
      * @return 変換した値。
      */
-    public BigDecimal convJavaDateToExcelDateValue(long dateTimeValue) {
+    public double convJavaDateToExcelDateValue(long dateTimeValue) {
         // まずは引数がBigDecimal化。
         BigDecimal base = BigDecimal.valueOf(dateTimeValue);
         // 次に普通の「秒」へと計算する。
         BigDecimal value = base.add(DATE_CELL_OFFSET).divide(BigDecimal.valueOf(1000));
         //　算出した「秒」を今度は、SpreadSheet側の義判断で。
-        return value.multiply(EXCEL_ONE_SEC);
+        BigDecimal result = value.multiply(EXCEL_ONE_SEC);
+        // お疲れ様でした。終了。
+        return result.doubleValue();
     }
 
 

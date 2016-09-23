@@ -102,7 +102,6 @@ public class Workresult {
     }
 
     public File makeFileWorkresultReport(String month) throws IOException {
-
         // 画面と同じく、「月条件」でリストW取得する。」
         List<WorkresultRow> rows = this.findWorkresultBy(month);
         User user = this.getCurrentUser();
