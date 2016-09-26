@@ -1,7 +1,7 @@
-box: debian
+box: java
 build:
   steps:
     - script:
-        name: test 
+        name: Test with Gradle
         code: |
           ./gradlew clean test
