@@ -1,6 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.workresult.dao;
 
-import com.github.kazuhito_m.odf_edit_sample.Example;
+import com.github.kazuhito_m.odf_edit_sample.App;
 import com.github.kazuhito_m.odf_edit_sample.fw.util.DateUtils;
 import com.github.kazuhito_m.odf_edit_sample.workresult.entity.WorkresultDay;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Example.class})
+@ContextConfiguration(classes = {App.class})
 @Transactional
 public class WorkresultDaoTest {
 

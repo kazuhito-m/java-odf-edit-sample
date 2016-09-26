@@ -8,9 +8,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-/**
- * Created by kazuhito on 16/09/24.
- */
 public class DateUtils {
 
     private static TimeZone TIMEZONE = TimeZone.getTimeZone("UTC");
