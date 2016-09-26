@@ -2,7 +2,6 @@ package com.github.kazuhito_m.odf_edit_sample.workresult.domain.report;
 
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.view.WorkresultRow;
-import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class WorkresultReportMaker {
         // 一時ファイル作成
         File work = File.createTempFile("workresultReports", ".ods");
         // 一時ファイルに書き込み。
-        OOUtils.open(sheet.getSpreadSheet().saveAs(work));
+        sheet.getSpreadSheet().saveAs(work);
 
         // 完成品ファイルを返す。
         return work;
