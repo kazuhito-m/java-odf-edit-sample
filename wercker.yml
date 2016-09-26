@@ -4,4 +4,4 @@ build:
     - script:
         name: Test with Gradle
         code: |
-          ./gradlew clean test --info
+          ./gradlew clean test
