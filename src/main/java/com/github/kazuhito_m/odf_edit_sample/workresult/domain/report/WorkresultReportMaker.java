@@ -38,25 +38,26 @@ public class WorkresultReportMaker {
 
         setValue(sheet.getCellAt("I2"), firstRow.resultDate);
         setValue(sheet.getCellAt("I8"), user.name);
-        setValue(sheet.getCellAt("B12"), firstRow.resultDate);
 
         int i = DATA_START_ROW; // Cellの指定はXもYも同じで、０オリジンみたい。
         for (WorkresultRow row : rows) {
             // 値代入
+            setValue(sheet.getCellAt(1, i), row.resultDate);
             setValue(sheet.getCellAt(3, i), row.startTime);
             setValue(sheet.getCellAt(4, i), row.endTime);
             setValue(sheet.getCellAt(5, i), row.breakHour);
             setValue(sheet.getCellAt(8, i), row.description);
-            // 再計算
-            if (i > DATA_START_ROW) {
-                recalc(sheet.getCellAt(1, i));
-            }
             if (row.endTime != null) {
                 recalc(sheet.getCellAt(6, i));
             }
-            recalc(sheet.getCellAt(7, i));
-            recalc(sheet.getCellAt(2, i));
             i++;
+        }
+
+        // 日付と合計行整え
+        setValue(sheet.getCellAt("B12"), firstRow.resultDate);
+        for (int j = DATA_START_ROW; j < DATA_START_ROW + 31; j++) {
+            recalc(sheet.getCellAt(2, i));
+            recalc(sheet.getCellAt(7, j));
         }
 
         // 一時ファイル作成

@@ -56,6 +56,11 @@ public class DateUtils {
      */
     public static Date getMonthLastDay(Date day) {
         Calendar cal = getCalender(day);
+        // 時刻系は０クリア
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        // ツイタチにして、一月足して、一日引く
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.add(Calendar.MONTH, 1);
         cal.add(Calendar.DAY_OF_MONTH, -1);
@@ -72,12 +77,12 @@ public class DateUtils {
     public static List<Date> createDateList(Date from, Date to) {
         List<Date> result = new ArrayList<>();
         Calendar cal = getCalender(from);
-        Date day = new Date(cal.getTimeInMillis());
-        while (day.before(to)) {
+        Date day;
+        do {
+            day = new Date(cal.getTimeInMillis());
             result.add(day);
             cal.add(Calendar.DAY_OF_MONTH, 1);
-            day = new Date(cal.getTimeInMillis());
-        }
+        } while (day.before(to));
         return result;
     }
 
