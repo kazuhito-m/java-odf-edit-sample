@@ -72,15 +72,14 @@ public class DateUtils {
     public static List<Date> createDateList(Date from, Date to) {
         List<Date> result = new ArrayList<>();
         Calendar cal = getCalender(from);
-        Date day;
-        do {
-            day = new Date(cal.getTimeInMillis());
+        Date day = new Date(cal.getTimeInMillis());
+        while (day.before(to)) {
             result.add(day);
             cal.add(Calendar.DAY_OF_MONTH, 1);
-        } while (day.before(to));
+            day = new Date(cal.getTimeInMillis());
+        }
         return result;
     }
-
 
     private static Calendar getCalender(Date day) {
         Calendar cal = Calendar.getInstance();
