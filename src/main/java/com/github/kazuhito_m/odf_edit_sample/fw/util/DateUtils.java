@@ -15,13 +15,13 @@ public class DateUtils {
 
     public static SimpleDateFormat getYmdFmt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        sdf.setTimeZone(TIMEZONE);
+//        sdf.setTimeZone(TIMEZONE);
         return sdf;
     }
 
     public static SimpleDateFormat getYmFmt() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM");
-        sdf.setTimeZone(TIMEZONE);
+//        sdf.setTimeZone(TIMEZONE);
         return sdf;
     }
 
@@ -31,6 +31,7 @@ public class DateUtils {
     }
 
     public static Date toSqlDate(String day) throws ParseException {
+        Date result = timeTruncate(new Date(getYmdFmt().parse(day).getTime()));
         return new Date(getYmdFmt().parse(day).getTime());
     }
 
@@ -89,7 +90,7 @@ public class DateUtils {
     private static Calendar getCalender(Date day) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(day);
-        cal.setTimeZone(TIMEZONE);
+//        cal.setTimeZone(TIMEZONE);
         return cal;
     }
 
