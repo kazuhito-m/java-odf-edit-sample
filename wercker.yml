@@ -4,7 +4,7 @@ build:
     - script:
         name: Test with Gradle
         code: |
-          ./gradlew clean check -X
+          ./gradlew clean check --debug
   after-steps:
     - sherzberg/slack-notify:
         subdomain: k-and-m
