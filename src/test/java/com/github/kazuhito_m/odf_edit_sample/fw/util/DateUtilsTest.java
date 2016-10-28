@@ -21,8 +21,10 @@ public class DateUtilsTest {
         Date actual = DateUtils.getMonthLastDay(day);
 
         // 検証
-        assertThat(actual, is(expect));
+        String msg = String.format("Dateが一致しているか確認,actual:%s,expect:%s", actual, expect);
+        assertThat(msg, actual, is(expect));
         // 時刻系はトランケートされてる。
+        msg = String.format("時系列はトランケートされている,actual:%s,expect:09:00:00", actual);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         assertThat(sdf.format(actual), is("09:00:00"));
 
