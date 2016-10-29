@@ -32,7 +32,8 @@ show variables like "chara%";
 
 ## Gradleコマンド
 
+```
 ./gradlew clean compileJava
 ./gradlew clean jar
 ./gradlew bootRun
-
+```

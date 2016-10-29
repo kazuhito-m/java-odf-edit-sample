@@ -1,4 +1,5 @@
-# "OpenDocument Spreadsheet" edit sample by Java
+"OpenDocument Spreadsheet" edit sample by Java
+==============================================
 
 OpenDocument Spreadsheetを使った「帳票テンプレート」サンプルアプリ
 
@@ -23,7 +24,7 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 ## Usage
 
-### Premise
+### Requirement
 
 以下を前提とします。
 
@@ -45,3 +46,7 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 ```
 ./gradlew clean check
 ```
+
+## Author
+
+Kazuhito Miura ( [@kazuhito_m](https://twitter.com/kazuhito_m) on Twitter )
