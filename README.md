@@ -23,15 +23,22 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 ## Usage
 
+### Premise
+
+以下を前提とします。
+
+- JDK8インストール
+
 ### Build and Run
 
-予め、MySQLのDBを用意します。
-
-+ [DBの用意手順(with Docker)](./INITIAL_DATABASE.md)
-
+- MySQLのDBを用意
+    + [DBの用意手順(with Docker)](./INITIAL_DATABASE.md)
+- SpringBootのアプリ起動コマンドを叩く
 ```
 ./gradlew clean bootRun
 ```
+- ブラウザからURLを指定
+    + [http://localhost:8080](http://localhost:8080)
 
 ### Test
 
