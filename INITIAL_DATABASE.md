@@ -35,4 +35,4 @@ show variables like "chara%";
 ./gradlew clean compileJava
 ./gradlew clean jar
 ./gradlew bootRun
-./
+
