@@ -59,6 +59,7 @@ public class WorkresultReportMaker {
             recalc(sheet.getCellAt(2, i));
             recalc(sheet.getCellAt(7, j));
         }
+        recalc(sheet.getCellAt(7, 42)); // 合計行
 
         // 一時ファイル作成
         File work = File.createTempFile("workresultReports", ".ods");
