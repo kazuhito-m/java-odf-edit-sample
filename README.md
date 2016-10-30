@@ -9,7 +9,7 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 ## What's this ?
 
-「[第13回関西LibreOffice勉強会](http://connpass.com/event/40278/)」の「[むしゃくしゃしたのでOpenDocumentで帳票テンプレート]()」のデモで使用したサンプルアプリケーションです。
+「[第13回関西LibreOffice勉強会](http://connpass.com/event/40278/)」の「[むしゃくしゃしたのでOpenDocumentで帳票テンプレート](http://www.slideshare.net/miurakazuhito/opendocument-13libreoffice-libokansai)」のデモで使用したサンプルアプリケーションです。
 
 基本的には「OpenDocument Spreadsheet(Libre Officeのドキュメント)をプログラム(Java)から操作する例」ですが、
 以下のファクタを利用したサンプル例だったりします。
