@@ -12,6 +12,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 
 jar {
     baseName = 'java-odf-edit-sample'
@@ -24,6 +25,33 @@ targetCompatibility = 1.8
 // Doma用ファイルコピー設定。
 processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
+compileJava.options.compilerArgs = ['-Adoma.dao.subpackage=impl', '-Adoma.dao.suffix=Impl']
+
+
+eclipse {
+    jdt {
+        file {
+            withProperties {properties ->
+                properties.setProperty('org.eclipse.jdt.core.compiler.processAnnotations', 'enabled')
+            }
+        }
+    }
+}
+
+eclipseJdt {
+    doFirst {
+        def factorypath = file('.factorypath')
+        def writer = new FileWriter(factorypath)
+        def xml = new groovy.xml.MarkupBuilder(writer)
+        xml.setDoubleQuotes(true)
+        xml.'factorypath'() {
+            def domaJar = configurations.compile.find {
+                it.name.startsWith('doma-2')
+            }
+            'factorypathentry'(kind: 'EXTJAR', id: domaJar, enabled: true, runInBatchMode: false)
+        }
+    }
+}
 
 repositories {
     jcenter()
