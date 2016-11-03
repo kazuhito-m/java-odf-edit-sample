@@ -2,8 +2,6 @@ package com.github.kazuhito_m.odf_edit_sample.workresult.domain.report;
 
 import com.github.kazuhito_m.odf_edit_sample.user.entity.User;
 import com.github.kazuhito_m.odf_edit_sample.workresult.view.WorkresultRow;
-import org.jopendocument.dom.ODValueType;
-import org.jopendocument.dom.spreadsheet.MutableCell;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 import org.slf4j.Logger;
@@ -11,8 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.List;
+
+import static com.github.kazuhito_m.odf_edit_sample.fw.util.OdsUtils.recalc;
+import static com.github.kazuhito_m.odf_edit_sample.fw.util.OdsUtils.setValue;
 
 /**
  * 印刷用「作業実績表」を作成する責務のクラス。
@@ -25,8 +25,6 @@ public class WorkresultReportMaker {
      * データの開始行。
      */
     private static final int DATA_START_ROW = 11;
-
-    private OdsHelper helper = new OdsHelper();
 
     public File makeReport(User user, List<WorkresultRow> rows) throws IOException {
         // テンプレートファイル取得
@@ -68,40 +66,6 @@ public class WorkresultReportMaker {
 
         // 完成品ファイルを返す。
         return work;
-    }
-
-    /**
-     * 引数に指定されたODSのセルの計算式を再計算する。
-     *
-     * @param cell ODSのセルオブジェクト。
-     */
-    private void recalc(MutableCell<SpreadSheet> cell) {
-        cell.setValue(cell.getValue() + " ");   // 再計算の代わりに値を再設定してみる。
-    }
-
-
-    /**
-     * 引数に指定されたODSのセルに、指定された値を「型」を考慮し設定する。
-     *
-     * @param cell  ODSのセルオブジェクト。
-     * @param value 設定したい値。
-     */
-    private void setValue(MutableCell cell, Object value) {
-        if (value == null) {
-            // null なら 値をクリア。
-            cell.clearValue();
-            cell.setValue("", ODValueType.STRING, true, true);
-        } else {
-            // 時刻(Time型)だけは、特殊扱い。数値化した後にセット。
-            if (value instanceof Time) {
-                // セルにTime型の値を「時刻書式そのままに」時刻値として設定。
-                Time time = (Time) value;
-                cell.setValue(helper.convJavaDateToExcelDateValue(time.getTime()), ODValueType.FLOAT, false, true);
-            } else {
-                // セルにTime型の値を「時刻書式そのままに」時刻値として設定。
-                cell.setValue(value);
-            }
-        }
     }
 
     private File getOdsTemplateFile() {
