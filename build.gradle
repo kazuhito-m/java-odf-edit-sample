@@ -17,6 +17,9 @@ apply plugin: 'eclipse'
 jar {
     baseName = 'java-odf-edit-sample'
     version = '0.0.1-SNAPSHOT'
+    manifest {
+        attributes 'Implementation-Title': baseName, 'Implementation-Version': version
+    }
 }
 
 sourceCompatibility = 1.8
