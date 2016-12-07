@@ -72,6 +72,12 @@
 
 </section>
 
+<div class="container">
+    <footer class="footer">
+        <p>Version: <span th:text="${appVer}">取れない場合これを表示する</span></p>
+    </footer>
+</div>
+
 <script>
 $(function($) {
     $('#monthSelect').change(function() {
@@ -87,13 +93,6 @@ $(function($) {
         return false;
     });
 });
-
-
-
-
-
-
-
 </script>
 
 </body>

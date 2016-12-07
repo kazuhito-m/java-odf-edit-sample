@@ -1,5 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.workresult.view;
 
+import com.github.kazuhito_m.odf_edit_sample.App;
 import com.github.kazuhito_m.odf_edit_sample.workresult.domain.Workresult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class WorkresultController {
 
         model.addAttribute("form", form);
         model.addAttribute("workresults", workresults);
+        model.addAttribute("appVer", App.VERSION);
 
         return "workresult";
     }
