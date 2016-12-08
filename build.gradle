@@ -13,6 +13,7 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply from: 'https://raw.github.com/brunodecarvalho/gradle-plugins/master/integration-test.gradle'
 
 jar {
     baseName = 'java-odf-edit-sample'
@@ -34,7 +35,7 @@ compileJava.options.compilerArgs = ['-Adoma.dao.subpackage=impl', '-Adoma.dao.su
 eclipse {
     jdt {
         file {
-            withProperties {properties ->
+            withProperties { properties ->
                 properties.setProperty('org.eclipse.jdt.core.compiler.processAnnotations', 'enabled')
             }
         }
