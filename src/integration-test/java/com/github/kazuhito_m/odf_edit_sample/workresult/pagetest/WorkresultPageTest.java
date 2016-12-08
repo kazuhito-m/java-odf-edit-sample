@@ -42,6 +42,8 @@ public class WorkresultPageTest {
         logger.debug("月度を選択");
         $("#monthSelect").selectOption("2014/11");
 
+        sleep(1000);    // 応答は１秒以内、ソレ以上かかってたらこけることとする。
+
         logger.debug("ハードコピー取得");
         screenshot(this.getClass().getSimpleName() + "/select-month-operation");
 
