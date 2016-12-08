@@ -55,7 +55,7 @@
                         <th>Memo/Description</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="workResultDetails">
                     <tr th:each="row : ${workresults}">
                         <td th:text="${row.lineNo}">1</td>
                         <td th:text="${#dates.format(row.resultDate,'MM/dd')}?:''">09/23</td>

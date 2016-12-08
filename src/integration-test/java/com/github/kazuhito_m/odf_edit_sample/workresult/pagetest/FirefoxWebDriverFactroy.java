@@ -14,9 +14,13 @@ public class FirefoxWebDriverFactroy {
 
     private static final Logger logger = LoggerFactory.getLogger(FirefoxWebDriverFactroy.class);
 
+    private static WebDriver driverCashe = null;
+
+    private static DesiredCapabilities capabilities = null;
+
     public static WebDriver create() {
 
-        String geckoDrivePath = WorkresultPageTest.class.getResource("geckodriver").getPath();
+        String geckoDrivePath = FirefoxWebDriverFactroy.class.getResource("geckodriver").getPath();
         logger.debug("geckoDrivePath : " + geckoDrivePath);
         System.setProperty("webdriver.gecko.driver", geckoDrivePath);
         System.setProperty("selenide.reports", "build/screenshot/");
@@ -27,6 +31,7 @@ public class FirefoxWebDriverFactroy {
 
         // プロファイルをセットする
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability(FirefoxDriver.PROFILE, myprofile);
         capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         capabilities.setJavascriptEnabled(true);
