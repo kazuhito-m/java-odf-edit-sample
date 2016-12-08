@@ -7,8 +7,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.codeborne.selenide.Selenide.close;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -25,10 +24,12 @@ public class WorkresultPageTest {
     @Test
     public void 初期表示を確認() {
 
-        logger.debug("IntegrationiTestのこのメソッドが通ってるか確認 : 初期表示を確認()");
+        logger.debug("URL指定でトップページを開く。");
+        open(EnvironmentModerator.getAppRootUrl());
 
+        logger.debug("ハードコピー取得");
+        screenshot(this.getClass().getSimpleName() + "/default-top-page");
 
-        open("http://localhost:8080/");
 
         // 検証
         assertThat("同じ", is("同じ"));

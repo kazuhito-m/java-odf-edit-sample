@@ -10,9 +10,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by kazuhito on 16/12/09.
- */
 public class FirefoxWebDriverFactroy {
 
     private static final Logger logger = LoggerFactory.getLogger(FirefoxWebDriverFactroy.class);
@@ -22,6 +19,7 @@ public class FirefoxWebDriverFactroy {
         String geckoDrivePath = WorkresultPageTest.class.getResource("geckodriver").getPath();
         logger.debug("geckoDrivePath : " + geckoDrivePath);
         System.setProperty("webdriver.gecko.driver", geckoDrivePath);
+        System.setProperty("selenide.reports", "build/screenshot/");
 
         // https://id:pw@url/でアクセス可能なFireFox用Profileを生成・ロードする
         ProfilesIni profile = new ProfilesIni();
@@ -30,7 +28,6 @@ public class FirefoxWebDriverFactroy {
         // プロファイルをセットする
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability(FirefoxDriver.PROFILE, myprofile);
-
         capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         capabilities.setJavascriptEnabled(true);
 
