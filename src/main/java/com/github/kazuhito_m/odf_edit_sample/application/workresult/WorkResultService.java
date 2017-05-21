@@ -1,7 +1,7 @@
 package com.github.kazuhito_m.odf_edit_sample.application.workresult;
 
-import com.github.kazuhito_m.odf_edit_sample.domain.SpreadSheetReportMaker;
-import com.github.kazuhito_m.odf_edit_sample.domain.SpreadSheetRepository;
+import com.github.kazuhito_m.odf_edit_sample.domain.report.SpreadSheetReportMaker;
+import com.github.kazuhito_m.odf_edit_sample.domain.report.SpreadSheetRepository;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.UserRepository;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultDay;

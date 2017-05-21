@@ -1,4 +1,4 @@
-package com.github.kazuhito_m.odf_edit_sample.domain;
+package com.github.kazuhito_m.odf_edit_sample.domain.report;
 
 import org.springframework.http.ResponseEntity;
 

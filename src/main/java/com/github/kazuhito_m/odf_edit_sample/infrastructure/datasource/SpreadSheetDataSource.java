@@ -1,7 +1,7 @@
 package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource;
 
-import com.github.kazuhito_m.odf_edit_sample.domain.SpreadSheetReportMaker;
-import com.github.kazuhito_m.odf_edit_sample.domain.SpreadSheetRepository;
+import com.github.kazuhito_m.odf_edit_sample.domain.report.SpreadSheetReportMaker;
+import com.github.kazuhito_m.odf_edit_sample.domain.report.SpreadSheetRepository;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
