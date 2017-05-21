@@ -26,14 +26,14 @@ mv ./plantuml-dependency-cli*/plantuml-dependency-cli-*.jar ./plantuml-dependenc
 wget https://sourceforge.net/projects/plantuml/files/1.2017.13/plantuml.1.2017.13.jar
 mv plantuml.*.jar plantuml.jar
 
-cd ../
+cd ${scriptDir}
 
 for targetPackage in $(cat ./target-package.list) ; do
   targetDir=`echo ${targetPackage} | sed 's/\./\//g'`
   lastPackageName=`basename ${targetDir}`
   targetFile=${outDir}/${lastPackageName}.pu
 
-  # plantumlのクラス図ファイルへリバース
+  # PlantUMLのクラス図ファイルへリバース
   java -jar ${workDir}/plantuml-dependency-cli.jar --basedir ../${SRC_DIR}/${targetDir} -o ${targetFile}
 
   # 作成されたファイルを加工
