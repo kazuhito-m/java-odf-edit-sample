@@ -7,6 +7,7 @@ build/
 *.ipr
 *.iws
 .idea/
-.out/
+out/
 .purc/class-diagrams
 .purc/work
+*.log
