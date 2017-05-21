@@ -3,5 +3,6 @@ machine:
     version: openjdk8
 test:
   post: # PlantUMLのクラス図を保存
+    - sudo apt-get install -y graphviz
     - ./.purc/plantuml-reverce-class-diaglam.sh
     - cp -r ./.purc/class-diagrams $CIRCLE_TEST_REPORTS/$CIRCLE_PROJECT_REPONAME/
