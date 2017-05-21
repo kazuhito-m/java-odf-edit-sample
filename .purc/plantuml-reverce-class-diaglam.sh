@@ -1,19 +1,19 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # どこから呼ばれても同じ挙動をする様に
 scriptDir=$(cd $(dirname $0);pwd)
 cd ${scriptDir}
-
-# 共通関数読込
-source ./functions.sh
-# 設定ファイル読みこみ
-source ./setting.conf
 
 # 作業ディレクトリ作成
 outDir=./class-diagrams
 workDir=./work
 clearDir ${outDir}
 clearDir ${workDir}
+
+# 共通関数読込
+source ./functions.sh
+# 設定ファイル読みこみ
+source ./setting.conf
 
 cd ${workDir}
 
@@ -40,10 +40,6 @@ for targetPackage in $(cat ./target-package.list) ; do
   for ignoreWord in $(cat ./ignore-words.list) ; do
     rowDelete ${targetFile}  ${ignoreWord}
   done
-#  rowLeave   ${targetFile} "${targetPackage}."
-#  rowReplace ${targetFile} "${targetPackage}."
-#  rowDelete  ${targetFile} ${BASE_PACKAGE}
-#  addHeaderFooter ${targetFile}
 
   # クラス図テキストファイルから、画像へ。
   java -jar ${workDir}/plantuml.jar ${targetFile}
