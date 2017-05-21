@@ -10,4 +10,4 @@ build/
 out/
 .purc/class-diagrams
 .purc/work
-**/*.log
+*.log
