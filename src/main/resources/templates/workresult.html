@@ -30,10 +30,9 @@
 
         <form th:action="@{/workresult}" th:object="${form}" method="post" class="well form-inline"
               name="wrcond">
-            User <input type="text" disabled="disabled" name="userCaption"
-                        th:field="*{userCaption}"/> Month :
+            User <input type="text" disabled="disabled" name="userCaption" th:field="${currentUser.summary}"/> Month :
             <select class="form-control" th:field="*{month}" id="monthSelect">
-                <option th:each="m : *{months}"
+                <option th:each="m : ${months}"
                         th:value="${m}"
                         th:text="${m}">
                 </option>
@@ -56,13 +55,13 @@
                     </tr>
                     </thead>
                     <tbody id="workResultDetails">
-                    <tr th:each="row : ${workresults}">
+                    <tr th:each="row : ${workResults}">
                         <td th:text="${row.lineNo}">1</td>
-                        <td th:text="${#dates.format(row.resultDate,'MM/dd')}?:''">09/23</td>
-                        <td th:text="${row.startTime}">09:00</td>
-                        <td th:text="${row.endTime}">12:30</td>
-                        <td th:text="${row.breakHour}">1.5 h</td>
-                        <td th:text="${row.description}">備考欄</td>
+                        <td th:text="${#dates.format(row.day.resultDate,'MM/dd')}?:''">09/23</td>
+                        <td th:text="${row.day.startTime}">09:00</td>
+                        <td th:text="${row.day.endTime}">12:30</td>
+                        <td th:text="${row.day.breakHour}">1.5 h</td>
+                        <td th:text="${row.day.description}">備考欄</td>
                     </tr>
                     </tbody>
                 </table>
@@ -93,6 +92,10 @@ $(function($) {
         return false;
     });
 });
+
+
+
+
 </script>
 
 </body>

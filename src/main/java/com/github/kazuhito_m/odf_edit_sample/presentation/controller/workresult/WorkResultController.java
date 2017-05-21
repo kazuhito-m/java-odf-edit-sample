@@ -11,8 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,55 +29,57 @@ public class WorkResultController {
 
     private final WorkResultService service;
 
+    @ModelAttribute("months")
+    List<String> months() {
+        return service.getMonths();
+    }
+
+    @ModelAttribute("workResults")
+    WorkResults workResults(@ModelAttribute("form") ConditionForm form,
+                            @ModelAttribute("months") List<String> months) {
+
+        logger.info("入力されて飛んできたと思しきつき");
+        logger.info(form.getMonth());
+
+
+        if (!months.contains(form.getMonth())) return WorkResults.EMPTY;
+        return service.findWorkResultBy(form.getMonth());
+    }
+
+    @ModelAttribute("currentUser")
+    User currentUser() {
+        return service.getCurrentUser();
+    }
+
+    @ModelAttribute("appVer")
+    String appVer() {
+        return App.VERSION;
+    }
+
     @RequestMapping({"/", "/workresult"})
-    public String workResult(@ModelAttribute("form") ConditionForm form, Model model) {
-
-        List<String> months = service.getMonths();
-
-        WorkResults workResults = WorkResults.EMPTY;
-        if (months.contains(form.getMonth())) {
-            workResults = service.findWorkResultBy(form.getMonth());
-        }
-        User currentUser = service.getCurrentUser();
-        final ConditionForm modifyForm = new ConditionForm(currentUser.getSummary(), months, form.getMonth());
-
-        model.addAttribute("form", modifyForm);
-        model.addAttribute("workresults", workResults);
-        model.addAttribute("appVer", App.VERSION);
-
+    public String workResult() {
         return "workresult";
     }
 
     @RequestMapping({"/dlworkresult"})
-    public ResponseEntity<byte[]> dlWorkresult(@ModelAttribute("form") ConditionForm form, Model model) throws IOException {
-
-        // 指定年月が不明なら、今月とする。
-        ConditionForm modifyForm = form;
-        if (StringUtils.isEmpty(form.getMonth())) {
-            modifyForm = new ConditionForm(form.getUserCaption(), form.getMonths(), service.getNowMonth());
-        }
-
+    public ResponseEntity<byte[]> dlWorkresult(@ModelAttribute("form") ConditionForm form) throws IOException {
         // ファイルを作成。
-        String downloadName = service.makeWorkResultReportDlName(modifyForm.getMonth());
-        File file = service.makeFileWorkResultReport(modifyForm.getMonth());
-
+        String month = form.getMonth();
+        String downloadName = service.makeWorkResultReportDlName(month);
+        File file = service.makeFileWorkResultReport(month);
         return makeDownloadEntryForOds(file, downloadName);
-
     }
 
     private ResponseEntity<byte[]> makeDownloadEntryForOds(File localFile, String downloadName) throws IOException {
-
         // ファイルからバイナリ(Byte列)を取得。
         FileSystem fs = FileSystems.getDefault();
         Path path = fs.getPath(localFile.getCanonicalPath());
         byte[] contents = Files.readAllBytes(path);
-
         // ダウンロード用オブジェクトを作成。
         HttpHeaders h = new HttpHeaders();
         h.add("Content-Type", "application/vnd.oasis.opendocument.spreadsheet;");
         h.setContentDispositionFormData("filename", downloadName);
         return new ResponseEntity<>(contents, h, HttpStatus.OK);
-
     }
 
     public WorkResultController(WorkResultService service) {
