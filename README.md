@@ -6,6 +6,8 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 ## Latest integration
 
 + Wercker : [![wercker status](https://app.wercker.com/status/220acd08eb808b9ba686d1130ae5d1bd/s/ "wercker status")](https://app.wercker.com/project/byKey/220acd08eb808b9ba686d1130ae5d1bd)
++ CircleCI : [![CircleCI](https://circleci.com/gh/kazuhito-m/java-odf-edit-sample.svg?style=svg)](https://circleci.com/gh/kazuhito-m/java-odf-edit-sample)
+
 
 ## What's this ?
 
