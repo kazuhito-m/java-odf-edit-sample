@@ -44,3 +44,5 @@ for targetPackage in $(cat ./target-package.list) ; do
   java -jar ${workDir}/plantuml.jar ${targetFile}
 
 done
+
+makeHtml './target-package.list' ${outDir}
