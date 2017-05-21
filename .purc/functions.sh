@@ -3,7 +3,7 @@
 function clearDir() {
   targetDir=${1}
   rm -rf ${targetDir}
-  mkdir ${targetDir}
+  mkdir -p ${targetDir}
 }
 
 function rowDelete() {

@@ -4,16 +4,15 @@
 scriptDir=$(cd $(dirname $0);pwd)
 cd ${scriptDir}
 
+# 共通関数読込、設定ファイル読みこみ
+source ./functions.sh
+source ./setting.conf
+
 # 作業ディレクトリ作成
 outDir=./class-diagrams
 workDir=./work
 clearDir ${outDir}
 clearDir ${workDir}
-
-# 共通関数読込
-source ./functions.sh
-# 設定ファイル読みこみ
-source ./setting.conf
 
 cd ${workDir}
 
