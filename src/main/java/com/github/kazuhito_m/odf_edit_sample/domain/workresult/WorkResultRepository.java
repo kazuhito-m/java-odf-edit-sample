@@ -1,11 +1,9 @@
 package com.github.kazuhito_m.odf_edit_sample.domain.workresult;
 
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface WorkResultRepository {
 
     /**

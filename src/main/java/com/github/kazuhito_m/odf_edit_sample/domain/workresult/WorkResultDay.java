@@ -21,7 +21,7 @@ public class WorkResultDay {
     private final String description;
 
     public String convMonth() {
-        if (!StringUtils.isEmpty(resultDate)) return "";
+        if (StringUtils.isEmpty(resultDate)) return "";
         return getYmFmt().format(resultDate);
     }
 

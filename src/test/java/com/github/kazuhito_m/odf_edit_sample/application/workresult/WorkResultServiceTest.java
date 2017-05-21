@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,7 +22,8 @@ public class WorkResultServiceTest {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkResultServiceTest.class);
 
-    private final WorkResultService sut;
+    @Autowired
+    private WorkResultService sut;
 
     @Test
     public void ユーザ指定で勤怠の履歴から月のリストを作成取得できる() {
@@ -34,17 +36,12 @@ public class WorkResultServiceTest {
         assertThat(last, is("2014/11"));
     }
 
-
     @Test
     public void ODSの印刷ファイルが作成取得出来る() throws IOException {
         // 実行
         File actual = sut.makeFileWorkResultReport("2016/01");
         // 検証
         assertThat("今はファイルがある程度", actual.exists(), is(true));
-    }
-
-    public WorkResultServiceTest(WorkResultService sut) {
-        this.sut = sut;
     }
 
 }

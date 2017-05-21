@@ -7,6 +7,7 @@ import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRow;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.dao.WorkResultDayDao;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -16,6 +17,7 @@ import java.util.Map;
 import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils.getMonthLastDay;
 import static java.util.stream.Collectors.toList;
 
+@Repository
 public class WorkResultDataSource implements WorkResultRepository {
 
     private final WorkResultDayDao workResultDayDao;
@@ -44,7 +46,7 @@ public class WorkResultDataSource implements WorkResultRepository {
                         WorkResultRow hitRow = blankRows.get(d.getResultDate());
                         return new WorkResultRow(hitRow.getLineNo(), d);
                     })
-                    .collect(toList());            // ValuesをListに変換。
+                    .collect(toList()); // ValuesをListに変換。
             return new WorkResults(rows);
         } catch (ParseException e) {
             return WorkResults.EMPTY;

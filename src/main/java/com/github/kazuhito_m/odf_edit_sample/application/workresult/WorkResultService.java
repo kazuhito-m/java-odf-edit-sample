@@ -2,9 +2,9 @@ package com.github.kazuhito_m.odf_edit_sample.application.workresult;
 
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.UserRepository;
-import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultDay;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRepository;
+import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.report.WorkResultReportMaker;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 import org.springframework.stereotype.Service;
