@@ -30,11 +30,6 @@ public class WorkResultController {
     @ModelAttribute("workResults")
     WorkResults workResults(@ModelAttribute("form") ConditionForm form,
                             @ModelAttribute("months") List<String> months) {
-
-        logger.info("入力されて飛んできたと思しきつき");
-        logger.info(form.getMonth());
-
-
         if (!months.contains(form.getMonth())) return WorkResults.EMPTY;
         return service.findWorkResultBy(form.getMonth());
     }

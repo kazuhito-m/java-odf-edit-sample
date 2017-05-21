@@ -60,7 +60,6 @@ public class WorkResultService {
     }
 
     public ResponseEntity<byte[]> makeDlEntityWorkResultReport(String month) throws IOException {
-        // ファイルを作成。
         SpreadSheetReportMaker reportMaker = makeWorkResultReportMaker(month);
         return spreadSheetRepository.makeDownloadEntryForOds(reportMaker);
     }
