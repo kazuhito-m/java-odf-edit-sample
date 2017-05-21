@@ -1,16 +1,14 @@
 package com.github.kazuhito_m.odf_edit_sample.domain.workresult.report;
 
+import com.github.kazuhito_m.odf_edit_sample.domain.SpreadSheetReportMaker;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
-import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultDay;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRow;
+import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
 
 import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.OdsUtils.recalc;
 import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.OdsUtils.setValue;
@@ -18,20 +16,22 @@ import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.OdsUt
 /**
  * 印刷用「作業実績表」を作成する責務のクラス。
  */
-public class WorkResultReportMaker {
-
-    // TODO 保存部分はインフラ、値セット部分はドメイン、という分け。
+public class WorkResultReportMaker implements SpreadSheetReportMaker {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkResultReportMaker.class);
+
+    private final User user;
+    private final String month;
+    private final WorkResults rows;
 
     /**
      * データの開始行。
      */
     private static final int DATA_START_ROW = 11;
 
-    public File makeReport(User user, WorkResults rows) throws IOException {
-        // テンプレートファイル取得
-        final SpreadSheet ods = SpreadSheet.createFromFile(getOdsTemplateFile());
+    @Override
+    public void writeContent(SpreadSheet ods) {
+
         final Sheet sheet = ods.getSheet(0);
 
         // 共通のものは、一件目をサンプリングしてやってもらおう。
@@ -63,21 +63,22 @@ public class WorkResultReportMaker {
         }
         recalc(sheet.getCellAt(7, 42)); // 合計行
 
-        // 一時ファイル作成
-        File work = File.createTempFile("workresultReports", ".ods");
-        // 一時ファイルに書き込み。
-        ods.saveAs(work);
-
-        // 完成品ファイルを返す。
-        return work;
     }
 
-    public String makeWorkresultReportDlName(String month) {
-        return "workresultReport" + month.replaceAll("\\/", "") + ".ods";
+    @Override
+    public String getReportDlName() {
+        return "workresultReport" + month.replaceAll("\\/", "");
     }
 
-    private File getOdsTemplateFile() {
-        return new File(this.getClass().getResource("workresultTemplate.ods").getPath());
+    @Override
+    public String getTemplateFileName() {
+        return "workresultTemplate.ods";
+    }
+
+    public WorkResultReportMaker(User user, String month, WorkResults rows) {
+        this.user = user;
+        this.month = month;
+        this.rows = rows;
     }
 
 }

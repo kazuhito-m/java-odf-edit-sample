@@ -6,14 +6,15 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,9 +40,9 @@ public class WorkResultServiceTest {
     @Test
     public void ODSの印刷ファイルが作成取得出来る() throws IOException {
         // 実行
-        File actual = sut.makeFileWorkResultReport("2016/01");
+        ResponseEntity<byte[]> actual = sut.makeDlEntityWorkResultReport("2016/01");
         // 検証
-        assertThat("今はファイルがある程度", actual.exists(), is(true));
+        assertThat("今は内容がある程度", actual.getBody().length, is(not(0)));
     }
 
 }
