@@ -41,7 +41,6 @@ public class WorkResultService {
                 .distinct()
                 .collect(toList());
         Collections.reverse(months);    // これをStreamにできないもんか
-        months.forEach(System.out::println);
         return months;
     }
 

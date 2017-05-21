@@ -1,8 +1,11 @@
 #!/bin/bash -x
 
+# どこから呼ばれても同じ挙動をする様に
+scriptDir=$(cd $(dirname $0);pwd)
+cd ${scriptDir}
+
 # 共通関数読込
 source ./functions.sh
-
 # 設定ファイル読みこみ
 source ./setting.conf
 
