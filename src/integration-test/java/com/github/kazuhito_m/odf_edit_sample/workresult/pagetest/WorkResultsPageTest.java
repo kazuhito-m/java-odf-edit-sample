@@ -12,12 +12,12 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class WorkresultPageTest {
+public class WorkResultsPageTest {
 
     // FIXME Firefox v.47 の問題を解決するため、FirefoxWebDriverFactroryにて「一応動くように」したが、今度は「２度newすると接続拒否される」というバグを解決できなかった。
     // FIXME 現在「テストケースを１つに限定」することでなんとかしているが、諸々解決したし。
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkresultPageTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(WorkResultsPageTest.class);
 
     @Before
     public void setUp() {

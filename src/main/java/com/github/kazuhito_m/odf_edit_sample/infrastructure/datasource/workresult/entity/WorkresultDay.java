@@ -1,5 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.entity;
 
+import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultDay;
 import org.seasar.doma.*;
 
 import java.math.BigDecimal;
@@ -30,5 +31,17 @@ public class WorkresultDay {
 
     @Column(name = "description")
     public String description;
+
+    public WorkResultDay toDomain() {
+        return new WorkResultDay(
+                id,
+                userId,
+                resultDate,
+                startTime,
+                endTime,
+                breakHour,
+                description
+        );
+    }
 
 }

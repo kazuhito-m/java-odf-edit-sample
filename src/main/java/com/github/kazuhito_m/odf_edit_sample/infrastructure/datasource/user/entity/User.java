@@ -16,4 +16,15 @@ public class User {
     public String mailAddress;
     public String description;
     public String password;
+
+    public com.github.kazuhito_m.odf_edit_sample.domain.user.User toDomain() {
+        return new com.github.kazuhito_m.odf_edit_sample.domain.user.User(
+                id,
+                name,
+                caption,
+                mailAddress,
+                description,
+                password);
+    }
+
 }

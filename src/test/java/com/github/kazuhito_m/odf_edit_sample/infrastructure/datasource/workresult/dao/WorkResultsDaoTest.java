@@ -22,11 +22,11 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {App.class})
 @Transactional
-public class WorkresultDaoTest {
+public class WorkResultsDaoTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkresultDaoTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(WorkResultsDaoTest.class);
     @Autowired
-    private WorkresultDayDao sut;
+    private WorkResultDayDao sut;
 
     @Test
     public void 勤怠の履歴を全件取得できる() {

@@ -1,11 +1,12 @@
 package com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util;
 
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -29,6 +30,30 @@ public class DateUtilsTest {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         assertThat(sdf.format(actual), is("00:00:00"));
 
+    }
+
+    @Test
+    public void 指定した範囲の日付のタバを取得できる() throws ParseException {
+        // 事前条件
+        Date from = DateUtils.toSqlDate("2016/09/01");
+        Date to = DateUtils.toSqlDate("2016/09/30");
+
+        // 実行
+        List<Date> days = DateUtils.createDateList(from, to);
+
+        // 検証
+        assertThat(days.size(), CoreMatchers.is(30));
+        assertThat(toString(days.get(0)), CoreMatchers.is("2016/09/01"));
+        assertThat(toString(days.get(1)), CoreMatchers.is("2016/09/02"));
+        // ...
+        assertThat(toString(days.get(28)), CoreMatchers.is("2016/09/29"));
+        assertThat(toString(days.get(29)), CoreMatchers.is("2016/09/30"));
+    }
+
+    // ユイティリティメソッド。
+
+    private String toString(Date day) {
+        return DateUtils.toString(day);
     }
 
 }

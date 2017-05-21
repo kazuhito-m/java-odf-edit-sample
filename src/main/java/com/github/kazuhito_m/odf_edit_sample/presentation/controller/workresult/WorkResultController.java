@@ -1,10 +1,12 @@
-package com.github.kazuhito_m.odf_edit_sample.presentation.view.workresult;
+package com.github.kazuhito_m.odf_edit_sample.presentation.controller.workresult;
 
 import com.github.kazuhito_m.odf_edit_sample.App;
-import com.github.kazuhito_m.odf_edit_sample.domain.workresult.Workresult;
+import com.github.kazuhito_m.odf_edit_sample.application.workresult.WorkResultService;
+import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
+import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
+import com.github.kazuhito_m.odf_edit_sample.presentation.view.workresult.ConditionForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,30 +22,29 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
-public class WorkresultController {
+public class WorkResultController {
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkresultController.class);
+    private static final Logger logger = LoggerFactory.getLogger(WorkResultController.class);
 
-    @Autowired
-    private Workresult domain;
+    private final WorkResultService service;
 
     @RequestMapping({"/", "/workresult"})
-    public String workresult(@ModelAttribute("form") ConditionForm form, Model model) {
+    public String workResult(@ModelAttribute("form") ConditionForm form, Model model) {
 
-        List<String> months = domain.getMonths();
+        List<String> months = service.getMonths();
 
-        List<WorkresultRow> workresults = Collections.emptyList();
+        WorkResults workResults = WorkResults.EMPTY;
         if (months.contains(form.getMonth())) {
-            workresults = domain.findWorkresultBy(form.getMonth());
+            workResults = service.findWorkResultBy(form.getMonth());
         }
-        final ConditionForm modifyForm = new ConditionForm(domain.getUserCaption(), months, form.getMonth());
+        User currentUser = service.getCurrentUser();
+        final ConditionForm modifyForm = new ConditionForm(currentUser.getSummary(), months, form.getMonth());
 
         model.addAttribute("form", modifyForm);
-        model.addAttribute("workresults", workresults);
+        model.addAttribute("workresults", workResults);
         model.addAttribute("appVer", App.VERSION);
 
         return "workresult";
@@ -55,18 +56,18 @@ public class WorkresultController {
         // 指定年月が不明なら、今月とする。
         ConditionForm modifyForm = form;
         if (StringUtils.isEmpty(form.getMonth())) {
-            modifyForm = new ConditionForm(form.getUserCaption(),form.getMonths() , domain.getNowMonth());
+            modifyForm = new ConditionForm(form.getUserCaption(), form.getMonths(), service.getNowMonth());
         }
 
         // ファイルを作成。
-        String downloadName = domain.makeWorkresultReportDlName(modifyForm.getMonth());
-        File file = domain.makeFileWorkresultReport(modifyForm.getMonth());
+        String downloadName = service.makeWorkResultReportDlName(modifyForm.getMonth());
+        File file = service.makeFileWorkResultReport(modifyForm.getMonth());
 
         return makeDownloadEntryForOds(file, downloadName);
 
     }
 
-    protected ResponseEntity<byte[]> makeDownloadEntryForOds(File localFile, String downloadName) throws IOException {
+    private ResponseEntity<byte[]> makeDownloadEntryForOds(File localFile, String downloadName) throws IOException {
 
         // ファイルからバイナリ(Byte列)を取得。
         FileSystem fs = FileSystems.getDefault();
@@ -81,4 +82,7 @@ public class WorkresultController {
 
     }
 
+    public WorkResultController(WorkResultService service) {
+        this.service = service;
+    }
 }
