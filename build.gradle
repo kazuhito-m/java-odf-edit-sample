@@ -29,7 +29,7 @@ targetCompatibility = 1.8
 // Doma用ファイルコピー設定。
 processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
-compileJava.options.compilerArgs = ['-Adoma.dao.subpackage=impl', '-Adoma.dao.suffix=Impl']
+compileJava.options.compilerArgs = ['-Adoma.db.subpackage=impl', '-Adoma.db.suffix=Impl']
 
 
 eclipse {

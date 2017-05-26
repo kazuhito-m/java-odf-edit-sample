@@ -1,4 +1,4 @@
-package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.entity;
+package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.db;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -10,12 +10,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
-    public String name;
-    public String caption;
-    public String mailAddress;
-    public String description;
-    public String password;
+    Integer id;
+    String name;
+    String caption;
+    String mailAddress;
+    String description;
+    String password;
 
     public com.github.kazuhito_m.odf_edit_sample.domain.user.User toDomain() {
         return new com.github.kazuhito_m.odf_edit_sample.domain.user.User(

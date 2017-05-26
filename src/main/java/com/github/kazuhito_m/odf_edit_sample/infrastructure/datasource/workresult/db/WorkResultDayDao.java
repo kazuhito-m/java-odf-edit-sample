@@ -1,6 +1,5 @@
-package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.dao;
+package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.db;
 
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.entity.WorkresultDay;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
@@ -15,7 +14,7 @@ import java.util.List;
 public interface WorkResultDayDao {
 
     @Select
-    List<WorkresultDay> selectAll();
+    List<WorkResultDay> selectAll();
 
     /**
      * 勤怠履歴データをユーザと日付で絞り込んで取得する。
@@ -26,7 +25,7 @@ public interface WorkResultDayDao {
      * @return 絞りこまれた履歴データ
      */
     @Select
-    List<WorkresultDay> selectByUserAndDay(Integer userId, Date from, Date to);
+    List<WorkResultDay> selectByUserAndDay(Integer userId, Date from, Date to);
 
     /**
      * 勤怠履歴データをユーザで絞り込んで取得する。
@@ -34,10 +33,10 @@ public interface WorkResultDayDao {
      * @param userId ユーザID。
      */
     @Select
-    List<WorkresultDay> selectByUser(Integer userId);
+    List<WorkResultDay> selectByUser(Integer userId);
 
     @Insert
     @Transactional
-    int insert(WorkresultDay day);
+    int insert(WorkResultDay day);
 
 }

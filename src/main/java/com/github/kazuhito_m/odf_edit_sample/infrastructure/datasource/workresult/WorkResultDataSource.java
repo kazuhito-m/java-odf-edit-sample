@@ -5,7 +5,7 @@ import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultDay;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRepository;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRow;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.dao.WorkResultDayDao;
+import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.db.WorkResultDayDao;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 import org.springframework.stereotype.Repository;
 
@@ -30,10 +30,6 @@ public class WorkResultDataSource implements WorkResultRepository {
 
             // DBから勤怠履歴データ取得。
             List<WorkResultDay> days = workResultDayDao.selectByUserAndDay(user.getId(), firstDay, lastDay).stream()
-                    .map(d -> { // TODO いつかこの部分をなくすようにしたい
-                        d.resultDate = DateUtils.timeTruncate(d.resultDate);    // 9時間ズレ的なおかしなことになるので、日付整え処理。
-                        return d;
-                    })
                     .map(d -> d.toDomain())
                     .collect(toList());
 

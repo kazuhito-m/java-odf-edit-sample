@@ -1,6 +1,5 @@
-package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.dao;
+package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.db;
 
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.entity.User;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;

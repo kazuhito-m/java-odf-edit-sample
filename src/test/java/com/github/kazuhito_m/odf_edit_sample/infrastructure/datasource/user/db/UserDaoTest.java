@@ -1,7 +1,6 @@
-package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.dao;
+package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.db;
 
 import com.github.kazuhito_m.odf_edit_sample.App;
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

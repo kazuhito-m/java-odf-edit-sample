@@ -1,7 +1,6 @@
-package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.dao;
+package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.db;
 
 import com.github.kazuhito_m.odf_edit_sample.App;
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.entity.WorkresultDay;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,11 +30,11 @@ public class WorkResultsDaoTest {
     @Test
     public void 勤怠の履歴を全件取得できる() {
         // 実行
-        List<WorkresultDay> actual = sut.selectAll();
+        List<WorkResultDay> actual = sut.selectAll();
         // 検証
         assertThat(actual.isEmpty(), is(false));
         // 初期データでほぼほぼnullじゃない埋め方してるはず、検証。
-        for (WorkresultDay day : actual) {
+        for (WorkResultDay day : actual) {
             assertThat(day.userId > 0, is(true));
             assertThat(day.resultDate, is(notNullValue()));
             assertThat(day.startTime, is(notNullValue()));
@@ -53,11 +52,11 @@ public class WorkResultsDaoTest {
         Date to = DateUtils.toSqlDate("2016/03/31");
 
         // 実行
-        List<WorkresultDay> actual = sut.selectByUserAndDay(1, from, to);
+        List<WorkResultDay> actual = sut.selectByUserAndDay(1, from, to);
 
         // 検証
         assertThat(actual.size(), is(20));
-        for (WorkresultDay day : actual) {
+        for (WorkResultDay day : actual) {
             assertThat(day.userId, is(1));
             logger.debug("日付:" + day.resultDate.toString());
         }
@@ -66,10 +65,10 @@ public class WorkResultsDaoTest {
     @Test
     public void 勤怠の履歴をユーザ指定で全件取得できる() throws ParseException {
         // 実行
-        List<WorkresultDay> actual = sut.selectByUser(1);
+        List<WorkResultDay> actual = sut.selectByUser(1);
         // 検証
         assertThat(actual.size() > 100, is(true));  // まあ、ゆうに100件は超えるだろう。
-        for (WorkresultDay day : actual) {
+        for (WorkResultDay day : actual) {
             assertThat(day.userId, is(1));
         }
     }
