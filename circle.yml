@@ -2,7 +2,10 @@ machine:
   java:
     version: openjdk8
 test:
+  override:
+    - ./gradlew test jacocoTestReport
   post: # PlantUMLのクラス図の画像を生成・保存
     - sudo apt-get install -y graphviz
     - ./.purc/plantuml-reverce-class-diaglam.sh
     - cp -r ./.purc/class-diagrams $CIRCLE_TEST_REPORTS/
+    - cp -r ./build/reports $CIRCLE_TEST_REPORTS/
