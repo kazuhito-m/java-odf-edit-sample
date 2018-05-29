@@ -24,7 +24,6 @@ public class DateUtils {
     }
 
     public static Date toSqlDate(String day) throws ParseException {
-        Date result = timeTruncate(new Date(getYmdFmt().parse(day).getTime()));
         return new Date(getYmdFmt().parse(day).getTime());
     }
 
