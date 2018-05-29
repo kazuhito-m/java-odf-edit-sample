@@ -63,7 +63,7 @@ public class WorkResultService {
         return spreadSheetRepository.makeDownloadEntryForOds(reportMaker);
     }
 
-    private SpreadSheetReportMaker makeWorkResultReportMaker(String month) throws IOException {
+    private SpreadSheetReportMaker makeWorkResultReportMaker(String month) {
         User user = userRepository.getCurrentUser();
         // 画面と同じく、「月条件」でリストW取得する。」
         WorkResults rows = workResultRepository.findWorkResultBy(user, month);
