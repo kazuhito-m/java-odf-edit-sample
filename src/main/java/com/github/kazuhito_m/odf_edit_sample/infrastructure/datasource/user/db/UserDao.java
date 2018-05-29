@@ -20,6 +20,6 @@ public interface UserDao {
 
     @Insert
     @Transactional
-    int insert(User User);
+    int insert(User user);
 
 }
