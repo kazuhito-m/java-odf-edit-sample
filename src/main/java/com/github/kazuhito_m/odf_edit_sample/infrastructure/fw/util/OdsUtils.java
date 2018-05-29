@@ -3,8 +3,6 @@ package com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util;
 import org.jopendocument.dom.ODValueType;
 import org.jopendocument.dom.spreadsheet.MutableCell;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,9 +25,6 @@ public class OdsUtils {
      * 定数「セルで0時0分でも最初から積まれてる値。」
      */
     private static final BigDecimal DATE_CELL_OFFSET = new BigDecimal("32400000");
-
-    private static final Logger logger = LoggerFactory.getLogger(OdsUtils.class);
-
 
     /**
      * 引数に指定されたODSのセルの計算式を再計算する。
@@ -82,5 +77,7 @@ public class OdsUtils {
         return result.doubleValue();
     }
 
+    private OdsUtils() {
+    }
 
 }
