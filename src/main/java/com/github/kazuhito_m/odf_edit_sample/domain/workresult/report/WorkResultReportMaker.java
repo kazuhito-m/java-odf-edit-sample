@@ -18,8 +18,6 @@ import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.OdsUt
  */
 public class WorkResultReportMaker implements SpreadSheetReportMaker {
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkResultReportMaker.class);
-
     private final User user;
     private final String month;
     private final WorkResults rows;
