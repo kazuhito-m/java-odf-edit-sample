@@ -5,8 +5,6 @@ import com.github.kazuhito_m.odf_edit_sample.application.workresult.WorkResultSe
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.presentation.view.workresult.ConditionForm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,8 +15,6 @@ import java.util.List;
 
 @Controller
 public class WorkResultController {
-
-    private static final Logger logger = LoggerFactory.getLogger(WorkResultController.class);
 
     private final WorkResultService service;
 
