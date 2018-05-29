@@ -1,0 +1,51 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - checkout
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle" }}
+      - run:
+          name: テスト
+          command: ./gradlew test jacocoTestReport
+      - store_test_results:
+          path: ./build/test-results
+      - store_artifacts:
+          path: ./build/reports
+      - run:
+          name: PlantUMLのクラス図の画像を生成・保存
+          command: |
+            sudo apt-get install -y graphviz
+            ./.purc/plantuml-reverce-class-diaglam.sh
+          when: always
+      - store_artifacts:
+          path: ./.purc/class-diagrams
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-{{ checksum "build.gradle" }}
+  static_analyze:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - setup_remote_docker
+      - deploy:
+          name: SonarScanerを実行、結果をSonarCloudに送る
+          command: |
+            ./gradlew sonarqube -Dsonar.organization=kazuhito-m-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONARCLOUD_KEY}
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - static_analyze:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
