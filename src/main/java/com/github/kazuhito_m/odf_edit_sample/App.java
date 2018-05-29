@@ -13,7 +13,7 @@ public class App {
      */
     public static final String VERSION = App.class.getPackage().getImplementationVersion();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
 
