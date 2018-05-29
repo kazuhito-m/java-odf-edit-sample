@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk
         environment:
+          TERM: dumb
           TZ: Asia/Tokyo
     steps:
       - checkout
