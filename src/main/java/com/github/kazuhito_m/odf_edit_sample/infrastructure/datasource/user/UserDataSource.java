@@ -3,7 +3,6 @@ package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.UserRepository;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.db.UserDao;
-import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.db.WorkResultDayDao;
 import org.springframework.stereotype.Repository;
 
 @Repository
