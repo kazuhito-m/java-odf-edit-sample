@@ -94,4 +94,7 @@ public class DateUtils {
         return cal;
     }
 
+    private DateUtils() {
+    }
+
 }
