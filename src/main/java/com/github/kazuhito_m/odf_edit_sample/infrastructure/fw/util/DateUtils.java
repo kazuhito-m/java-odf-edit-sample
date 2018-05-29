@@ -10,19 +10,12 @@ import java.util.TimeZone;
 
 public class DateUtils {
 
-    private static TimeZone TIMEZONE = TimeZone.getTimeZone("UTC");
-
-
     public static SimpleDateFormat getYmdFmt() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-//        sdf.setTimeZone(TIMEZONE);
-        return sdf;
+        return new SimpleDateFormat("yyyy/MM/dd");
     }
 
     public static SimpleDateFormat getYmFmt() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM");
-//        sdf.setTimeZone(TIMEZONE);
-        return sdf;
+        return new SimpleDateFormat("yyyy/MM");
     }
 
 
@@ -90,7 +83,6 @@ public class DateUtils {
     private static Calendar getCalender(Date day) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(day);
-//        cal.setTimeZone(TIMEZONE);
         return cal;
     }
 
