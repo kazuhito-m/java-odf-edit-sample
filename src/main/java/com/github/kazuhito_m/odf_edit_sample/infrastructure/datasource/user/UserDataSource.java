@@ -26,7 +26,7 @@ public class UserDataSource implements UserRepository {
         return userDao.selectById(DEFAULT_USER_ID).toDomain();
     }
 
-    public UserDataSource(UserDao userDao, WorkResultDayDao workResultDayDao) {
+    public UserDataSource(UserDao userDao) {
         this.userDao = userDao;
     }
 
