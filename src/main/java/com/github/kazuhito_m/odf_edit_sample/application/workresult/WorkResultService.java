@@ -37,7 +37,7 @@ public class WorkResultService {
         User currentUser = getCurrentUser();
         List<WorkResultDay> allDays = workResultRepository.findWorkResultDaysBy(currentUser);
         List<String> months = allDays.stream()
-                .map(d -> d.convMonth())
+                .map(WorkResultDay::convMonth)
                 .distinct()
                 .collect(toList());
         Collections.reverse(months);    // これをStreamにできないもんか
