@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
     }
 }
 
@@ -14,6 +15,7 @@ apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'org.sonarqube'
 apply from: 'https://raw.github.com/brunodecarvalho/gradle-plugins/master/integration-test.gradle'
 
 jar {
