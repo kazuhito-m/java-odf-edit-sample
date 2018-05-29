@@ -7,8 +7,6 @@ import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRow;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.OdsUtils.recalc;
 import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.OdsUtils.setValue;
