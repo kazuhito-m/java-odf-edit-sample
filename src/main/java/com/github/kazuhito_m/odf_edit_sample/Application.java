@@ -6,15 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableAutoConfiguration
 @SpringBootApplication
-public class App {
+public class Application {
 
-    /**
-     * MANUFEST.MF から取れる「(ivyエコシステムの)Jarのバージョン。
-     */
-    public static final String VERSION = App.class.getPackage().getImplementationVersion();
+    public static final String VERSION = Application.class.getPackage().getImplementationVersion();
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

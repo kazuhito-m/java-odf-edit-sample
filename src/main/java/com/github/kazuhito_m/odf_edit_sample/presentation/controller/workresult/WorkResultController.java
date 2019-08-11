@@ -1,6 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.presentation.controller.workresult;
 
-import com.github.kazuhito_m.odf_edit_sample.App;
+import com.github.kazuhito_m.odf_edit_sample.Application;
 import com.github.kazuhito_m.odf_edit_sample.application.workresult.WorkResultService;
 import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
@@ -37,7 +37,7 @@ public class WorkResultController {
 
     @ModelAttribute("appVer")
     String appVer() {
-        return App.VERSION;
+        return Application.VERSION;
     }
 
     @RequestMapping({"/", "/workresult"})

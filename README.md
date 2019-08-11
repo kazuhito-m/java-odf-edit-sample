@@ -18,9 +18,7 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 - JOpenDocument(Javaのライブラリ)
 - Spring boot
 - Doma2
-- H2Databaseを使ったDBテスト(本番はMySQL想定)
 - Flyway(DBマイグレーションツール)
-- Lombok
 - Twitter Bootstrap
 
 ## Usage
@@ -29,11 +27,11 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 以下を前提とします。
 
-- JDK8インストール
+- JDK11インストール
 
 ### Build and Run
 
-- MySQLのDBを用意
+- PostgresのDBを用意
     + [DBの用意手順(with Docker)](./INITIAL_DATABASE.md)
 - SpringBootのアプリ起動コマンドを叩く
 ```

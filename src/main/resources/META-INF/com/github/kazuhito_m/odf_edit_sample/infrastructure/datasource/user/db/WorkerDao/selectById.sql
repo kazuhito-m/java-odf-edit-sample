@@ -1,7 +1,7 @@
 SELECT
     *
 FROM
-    user
+    worker
 WHERE
     id = /* userId */1
 

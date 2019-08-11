@@ -1,83 +1,70 @@
 buildscript {
-    repositories {
-        jcenter()
-        maven { url "http://repo.spring.io/snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
-        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+    ext {
+        springBootVersion = '2.1.9.RELEASE'
+        encoding = 'UTF-8'
+        compatibility = JavaVersion.VERSION_11
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'org.sonarqube'
-apply from: 'https://raw.github.com/brunodecarvalho/gradle-plugins/master/integration-test.gradle'
 
-jar {
-    baseName = 'java-odf-edit-sample'
-    version = '0.0.1-SNAPSHOT'
-    manifest {
-        attributes 'Implementation-Title': baseName, 'Implementation-Version': version
-    }
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '2.1.9.RELEASE'
+    id "org.dddjava.jig-gradle-plugin" version "2019.7.4"
+    id 'jacoco'
+//    id "org.sonarqube" version "2.7.1"
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+jigReports.dependsOn(clean, compileJava, processResources)
+bootRun.mustRunAfter(clean)
 
-// Doma用ファイルコピー設定。
+sourceCompatibility = compatibility
+targetCompatibility = compatibility
+
+jacoco.toolVersion = '0.8.4'
+
+// JavaクラスとSQLファイルの出力先ディレクトリを同じにし、コンパイルより前にSQLファイルを出力先ディレクトリにコピーする。
 processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
-compileJava.options.compilerArgs = ['-Adoma.db.subpackage=impl', '-Adoma.db.suffix=Impl']
 
-
-eclipse {
-    jdt {
-        file {
-            withProperties { properties ->
-                properties.setProperty('org.eclipse.jdt.core.compiler.processAnnotations', 'enabled')
-            }
-        }
-    }
-}
-
-eclipseJdt {
-    doFirst {
-        def factorypath = file('.factorypath')
-        def writer = new FileWriter(factorypath)
-        def xml = new groovy.xml.MarkupBuilder(writer)
-        xml.setDoubleQuotes(true)
-        xml.'factorypath'() {
-            def domaJar = configurations.compile.find {
-                it.name.startsWith('doma-2')
-            }
-            'factorypathentry'(kind: 'EXTJAR', id: domaJar, enabled: true, runInBatchMode: false)
-        }
-    }
-}
+tasks.withType(Test) { systemProperty "file.encoding", encoding }
 
 repositories {
     jcenter()
-    maven { url "http://repo.spring.io/snapshot" }
-    maven { url "http://repo.spring.io/milestone" }
 }
 
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.21'
-    compile 'org.springframework.boot:spring-boot-starter-web:1.5.3.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile 'org.seasar.doma.boot:doma-spring-boot-starter:1.1.0'
-    compile 'org.flywaydb:flyway-core'
-    compile 'mysql:mysql-connector-java'
-    compile 'org.springframework.boot:spring-boot-devtools'
-    compile 'org.jopendocument:jOpenDocument:1.3'
+    implementation platform('org.springframework.boot:spring-boot-dependencies:' + springBootVersion)
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-    runtime 'com.h2database:h2'
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.codeborne:selenide:4.1'
+    def doma = 'org.seasar.doma:doma:2.24.0'
+    implementation(doma)
+    annotationProcessor(doma)
+    implementation("org.seasar.doma.boot:doma-spring-boot-starter:1.1.1")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+
+    implementation('org.jopendocument:jOpenDocument:1.3')
+
+    implementation("org.flywaydb:flyway-core:5.2.4")  // 6以降にするには、spring-bootが2.2以上に上げられる様になってから
+
+    runtimeOnly("com.h2database:h2")
+    runtimeOnly('org.postgresql:postgresql:42.2.6')
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group: 'junit')
+    }
+
+    testImplementation platform("org.junit:junit-bom:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
+    testRuntimeClasspath("org.junit.jupiter:junit-jupiter-engine")
+
+    testImplementation 'com.codeborne:selenide:5.3.1'
+}
+
+test {
+    useJUnitPlatform()
 }

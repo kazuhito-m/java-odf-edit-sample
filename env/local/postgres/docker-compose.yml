@@ -1,0 +1,6 @@
+postgres-nwpsapi:
+  build: "."
+  ports:
+    - "5432:5432"
+  container_name: "postgres-odf-edit-sample"
+  restart: "unless-stopped"

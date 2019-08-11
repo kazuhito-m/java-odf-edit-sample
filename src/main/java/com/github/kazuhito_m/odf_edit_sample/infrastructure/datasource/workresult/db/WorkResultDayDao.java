@@ -12,9 +12,8 @@ import java.util.List;
 @ConfigAutowireable
 @Dao
 public interface WorkResultDayDao {
-
     @Select
-    List<WorkResultDay> selectAll();
+    List<WorkResultDayTable> selectAll();
 
     /**
      * 勤怠履歴データをユーザと日付で絞り込んで取得する。
@@ -25,7 +24,7 @@ public interface WorkResultDayDao {
      * @return 絞りこまれた履歴データ
      */
     @Select
-    List<WorkResultDay> selectByUserAndDay(Integer userId, Date from, Date to);
+    List<WorkResultDayTable> selectByUserAndDay(Integer userId, Date from, Date to);
 
     /**
      * 勤怠履歴データをユーザで絞り込んで取得する。
@@ -33,10 +32,9 @@ public interface WorkResultDayDao {
      * @param userId ユーザID。
      */
     @Select
-    List<WorkResultDay> selectByUser(Integer userId);
+    List<WorkResultDayTable> selectByUser(Integer userId);
 
     @Insert
-    @Transactional
-    int insert(WorkResultDay day);
+    int insert(WorkResultDayTable day);
 
 }

@@ -1,13 +1,11 @@
 package com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.user.db;
 
-import org.seasar.doma.Entity;
-import org.seasar.doma.GeneratedValue;
-import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
+import com.github.kazuhito_m.odf_edit_sample.domain.user.User;
+import org.seasar.doma.*;
 
 @Entity
-public class User {
-
+@Table(name = "worker")
+public class WorkerTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
@@ -17,8 +15,8 @@ public class User {
     String description;
     String password;
 
-    public com.github.kazuhito_m.odf_edit_sample.domain.user.User toDomain() {
-        return new com.github.kazuhito_m.odf_edit_sample.domain.user.User(
+    public User toDomain() {
+        return new User(
                 id,
                 name,
                 caption,
@@ -26,5 +24,4 @@ public class User {
                 description,
                 password);
     }
-
 }

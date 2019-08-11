@@ -10,16 +10,16 @@ import java.util.List;
 
 @ConfigAutowireable
 @Dao
-public interface UserDao {
+public interface WorkerDao {
 
     @Select
-    List<User> selectAll();
+    List<WorkerTable> selectAll();
 
     @Select
-    User selectById(Integer userId);
+    WorkerTable selectById(Integer userId);
 
     @Insert
     @Transactional
-    int insert(User user);
+    int insert(WorkerTable user);
 
 }

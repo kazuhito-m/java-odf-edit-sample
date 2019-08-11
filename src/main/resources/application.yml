@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    sql-script-encoding: utf-8
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/odf_edit_sample
+    username: databaseuser
+    password: databasepassword
+doma:
+  dialect: POSTGRES
+  doma.naming: SNAKE_LOWER_CASE
+  sql-file-repository: no_cache

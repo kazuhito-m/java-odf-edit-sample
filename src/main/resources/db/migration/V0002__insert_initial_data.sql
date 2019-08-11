@@ -1,6 +1,6 @@
-INSERT INTO user (name,caption,mailAddress,description,password) VALUES ('Kazuhito Miura','三浦 一仁','kazuhito.miura@example.com','唯一のユーザ','pswd');
-INSERT INTO user (name,caption,mailAddress,description,password) VALUES ('Jenkins','Jenkinsの爺さん(執事)','jenkins@example.com','管理用ユーザ','pswd');
-INSERT INTO user (name,caption,mailAddress,description,password) VALUES ('Okan','三浦 康子','yasuko@example.com','わかりやすく母親','pswd');
+INSERT INTO worker (name,caption,mailAddress,description,password) VALUES ('Kazuhito Miura','三浦 一仁','kazuhito.miura@example.com','唯一のユーザ','pswd');
+INSERT INTO worker (name,caption,mailAddress,description,password) VALUES ('Jenkins','Jenkinsの爺さん(執事)','jenkins@example.com','管理用ユーザ','pswd');
+INSERT INTO worker (name,caption,mailAddress,description,password) VALUES ('Okan','三浦 康子','yasuko@example.com','わかりやすく母親','pswd');
 
 INSERT INTO workresult_day (user_id,result_date,start_time,end_time,break_hour) VALUES (1,'2014-11-04','09:30:00','20:00:00',1.25);
 INSERT INTO workresult_day (user_id,result_date,start_time,end_time,break_hour) VALUES (1,'2014-11-05','09:30:00','18:30:00',1);

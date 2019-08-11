@@ -6,7 +6,7 @@ SELECT
     ,description
     ,password
 FROM
-    user
+    worker
 ORDER BY
     name
 
