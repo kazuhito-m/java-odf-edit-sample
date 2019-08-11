@@ -2,20 +2,14 @@ package com.github.kazuhito_m.odf_edit_sample.domain.workresult;
 
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkResultsTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(WorkResultsTest.class);
-
     @Test
     public void 指定した範囲の日付をキーとするMapを取得する() throws ParseException {
         // 事前条件
@@ -37,9 +31,7 @@ public class WorkResultsTest {
             }
             assertEquals(i++, row.getLineNo());
             assertNotNull(day.getResultDate());
-            assertNotNull(day.getStartTime());
+            assertNull(day.getStartTime());
         }
-
     }
-
 }
