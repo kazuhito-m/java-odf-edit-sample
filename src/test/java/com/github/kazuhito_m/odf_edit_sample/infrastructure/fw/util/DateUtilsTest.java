@@ -26,7 +26,7 @@ public class DateUtilsTest {
         // 時刻系はトランケートされてる。
         msg = String.format("時系列はトランケートされている,actual:%s,expect:09:00:00", actual);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        assertEquals("00:00:00", actual);
+        assertEquals("00:00:00", sdf.format(actual), msg);
 
     }
 
