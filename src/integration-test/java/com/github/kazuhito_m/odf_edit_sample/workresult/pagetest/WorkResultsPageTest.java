@@ -33,9 +33,8 @@ public class WorkResultsPageTest {
 
     @Test
     public void 月度を選択するとその月の勤怠実績データを表示() {
-
         logger.debug("URL指定でトップページを開く。");
-        open(EnvironmentModerator.getAppRootUrl());
+        open(new EnvironmentModerator().appRootUrl());
 
         logger.debug("ハードコピー取得");
         hardCopy("default-top-page");
