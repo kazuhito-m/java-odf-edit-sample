@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = Application.class)
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 public class WorkResultsDaoTest {
-
     private static final Logger logger = LoggerFactory.getLogger(WorkResultsDaoTest.class);
+
     @Autowired
     private WorkResultDayDao sut;
 

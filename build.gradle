@@ -6,7 +6,6 @@ buildscript {
     }
 }
 
-
 plugins {
     id 'java'
     id 'idea'
@@ -29,6 +28,32 @@ processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
 
 tasks.withType(Test) { systemProperty "file.encoding", encoding }
+
+// for Integration(E2E) test
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeClasspath.extendsFrom testRuntimeClasspath
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+sourceSets {
+    integrationTest {
+        java.srcDir file('src/integration-test/java')
+        resources.srcDir file('src/integration-test/resources')
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+task integrationTest(type: Test) {
+    group 'verification'
+    description 'Runs the integration tests.'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+integrationTest {
+    useJUnitPlatform()
+}
+check.dependsOn integrationTest
+
 
 repositories {
     jcenter()
@@ -62,7 +87,7 @@ dependencies {
     testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
     testRuntimeClasspath("org.junit.jupiter:junit-jupiter-engine")
 
-    testImplementation 'com.codeborne:selenide:5.3.1'
+    integrationTestImplementation('com.codeborne:selenide:5.3.1')
 }
 
 test {

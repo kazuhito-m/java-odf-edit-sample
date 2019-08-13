@@ -46,5 +46,4 @@ public class WorkResultServiceTest {
         // 検証
         assertNotEquals(0, actual.getBody().length); // "今は内容がある程度
     }
-
 }
