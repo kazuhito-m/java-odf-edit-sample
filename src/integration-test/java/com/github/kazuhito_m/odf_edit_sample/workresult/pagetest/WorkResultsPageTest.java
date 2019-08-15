@@ -18,11 +18,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = DEFINED_PORT)
 public class WorkResultsPageTest {
-
-    // FIXME Firefox v.47 の問題を解決するため、FirefoxWebDriverFactroryにて「一応動くように」したが、今度は「２度newすると接続拒否される」というバグを解決できなかった。
-    // FIXME 現在「テストケースを１つに限定」することでなんとかしているが、諸々解決したし。
-
-    private static final Logger logger = LoggerFactory.getLogger(WorkResultsPageTest.class);
+   private static final Logger logger = LoggerFactory.getLogger(WorkResultsPageTest.class);
 
     @BeforeAll
     public static void setUp() {
@@ -32,7 +28,7 @@ public class WorkResultsPageTest {
     }
 
     @Test
-    public void 月度を選択するとその月の勤怠実績データを表示() {
+    public void 初期表示は勤怠実績データはゼロ件で表示() {
         logger.debug("URL指定でトップページを開く。");
         open(new EnvironmentModerator().appRootUrl());
 
@@ -43,6 +39,12 @@ public class WorkResultsPageTest {
         int rows = $("#workResultDetails").findElements(By.tagName("tr")).size();
 
         assertEquals(0, rows, "初期表示時は０行表示");
+    }
+
+    @Test
+    public void 月度を選択するとその月の勤怠実績データを表示() {
+        logger.debug("URL指定でトップページを開く。");
+        open(new EnvironmentModerator().appRootUrl());
 
         logger.debug("月度を選択");
         $("#monthSelect").selectOption("2014/11");
@@ -53,7 +55,7 @@ public class WorkResultsPageTest {
         hardCopy("select-month-operation");
 
         logger.debug("初期表示の行数確認");
-        rows = $("#workResultDetails").findElements(By.tagName("tr")).size();
+        int rows = $("#workResultDetails").findElements(By.tagName("tr")).size();
 
         assertEquals(30, rows, "11月度を選択したので30日間");
     }
