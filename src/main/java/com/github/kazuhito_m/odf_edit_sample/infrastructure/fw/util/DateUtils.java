@@ -1,10 +1,10 @@
 package com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DateUtils {
@@ -78,6 +78,13 @@ public class DateUtils {
         return result;
     }
 
+    public static Date addHour(Date date, int hour) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR, hour);
+        return calendar.getTime();
+    }
+
     private static Calendar getCalender(Date day) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(day);
@@ -86,5 +93,4 @@ public class DateUtils {
 
     private DateUtils() {
     }
-
 }

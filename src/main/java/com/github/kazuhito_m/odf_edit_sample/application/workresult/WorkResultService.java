@@ -65,7 +65,7 @@ public class WorkResultService {
 
     private SpreadSheetReportMaker makeWorkResultReportMaker(String month) {
         User user = userRepository.getCurrentUser();
-        // 画面と同じく、「月条件」でリストW取得する。」
+        // 画面と同じく、「月条件」でリストを取得する。」
         WorkResults rows = workResultRepository.findWorkResultBy(user, month);
         // 印刷専門家にファイル作成を依頼。
         return new WorkResultReportMaker(user, month, rows);

@@ -1,7 +1,6 @@
 package com.github.kazuhito_m.odf_edit_sample.domain.workresult;
 
-public class WorkResultRow {
-
+public class WorkResultRow implements Comparable<WorkResultRow> {
     private final Integer lineNo;
     private final WorkResultDay day;
 
@@ -18,4 +17,8 @@ public class WorkResultRow {
         this.day = day;
     }
 
+    @Override
+    public int compareTo(WorkResultRow other) {
+        return day.compareTo(other.day);
+    }
 }

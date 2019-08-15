@@ -9,8 +9,8 @@ import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresul
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +29,8 @@ public class WorkResultDataSource implements WorkResultRepository {
             Date lastDay = getMonthLastDay(firstDay);
 
             // DBから勤怠履歴データ取得。
-            List<WorkResultDay> days = workResultDayDao.selectByUserAndDay(user.getId(), firstDay, lastDay).stream()
+            List<WorkResultDay> days = workResultDayDao.selectByUserAndDay(user.getId(), new java.sql.Date(firstDay.getTime()), new java.sql.Date(lastDay.getTime()))
+                    .stream()
                     .map(d -> d.toDomain())
                     .collect(toList());
 
@@ -37,12 +38,14 @@ public class WorkResultDataSource implements WorkResultRepository {
             Map<Date, WorkResultRow> blankRows = WorkResults.createBlankMapBy(firstDay, lastDay);
 
             // 日付で「キー当て」にいって、空っぽのものにDBの値を複写する。
-            List<WorkResultRow> rows = days.stream()
-                    .map(d -> {
-                        WorkResultRow hitRow = blankRows.get(d.getResultDate());
-                        return new WorkResultRow(hitRow.getLineNo(), d);
-                    })
-                    .collect(toList()); // ValuesをListに変換。
+            days.forEach(day -> {
+                WorkResultRow hitRow = blankRows.get(day.getResultDate());
+                blankRows.put(day.getResultDate(), new WorkResultRow(hitRow.getLineNo(), day));
+            });
+            List<WorkResultRow> rows = blankRows.values()
+                    .stream()
+                    .sorted()
+                    .collect(toList());
             return new WorkResults(rows);
         } catch (ParseException e) {
             return WorkResults.EMPTY;

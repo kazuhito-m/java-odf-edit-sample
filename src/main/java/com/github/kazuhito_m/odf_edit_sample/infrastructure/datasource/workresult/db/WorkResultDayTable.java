@@ -37,7 +37,7 @@ public class WorkResultDayTable {
         return new WorkResultDay(
                 id,
                 userId,
-                // 9時間ズレ的なおかしなことになるので、日付整え処理。
+                // FIXME 9時間ズレ的なおかしなことになるので、日付整え処理。
                 DateUtils.timeTruncate(resultDate),
                 startTime,
                 endTime,

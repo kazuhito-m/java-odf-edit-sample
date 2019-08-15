@@ -8,7 +8,7 @@ import java.util.Date;
 
 import static com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils.getYmFmt;
 
-public class WorkResultDay {
+public class WorkResultDay implements Comparable<WorkResultDay> {
 
     // TODO ドメインに移動したからには、Date,TimeはLocalDateTimeに移行する。
 
@@ -74,4 +74,8 @@ public class WorkResultDay {
         this.description = description;
     }
 
+    @Override
+    public int compareTo(WorkResultDay other) {
+        return resultDate.compareTo(other.resultDate);
+    }
 }

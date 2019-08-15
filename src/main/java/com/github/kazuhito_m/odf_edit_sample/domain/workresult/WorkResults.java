@@ -2,7 +2,6 @@ package com.github.kazuhito_m.odf_edit_sample.domain.workresult;
 
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 
-import java.sql.Date;
 import java.util.*;
 import java.util.stream.Stream;
 
