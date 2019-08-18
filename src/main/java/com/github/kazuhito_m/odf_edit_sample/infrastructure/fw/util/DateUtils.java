@@ -22,8 +22,12 @@ public class DateUtils {
         return getYmdFmt().format(day);
     }
 
-    public static Date toSqlDate(String day) throws ParseException {
-        return new Date(getYmdFmt().parse(day).getTime());
+    public static java.sql.Date toSqlDate(String day) throws ParseException {
+        return new java.sql.Date(getYmdFmt().parse(day).getTime());
+    }
+
+    public static Date toDate(String day) throws ParseException {
+        return getYmdFmt().parse(day);
     }
 
     /**
