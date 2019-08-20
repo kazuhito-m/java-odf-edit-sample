@@ -48,6 +48,7 @@ task integrationTest(type: Test) {
     description 'Runs the integration tests.'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
+    mustRunAfter test
 }
 integrationTest {
     useJUnitPlatform()

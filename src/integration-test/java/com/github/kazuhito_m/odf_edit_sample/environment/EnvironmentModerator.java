@@ -1,4 +1,4 @@
-package com.github.kazuhito_m.odf_edit_sample.workresult.pagetest;
+package com.github.kazuhito_m.odf_edit_sample.environment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +9,11 @@ import java.net.SocketException;
 import java.util.Collections;
 
 public class EnvironmentModerator {
-    private static final Logger logger = LoggerFactory.getLogger(EnvironmentModerator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnvironmentModerator.class);
 
     public String appRootUrl() {
         String ip = selfIpV4();
-        logger.info("自身のIPとして認識したもの:" + ip);
+        LOGGER.info("自身のIPとして認識したもの:" + ip);
         return String.format("http://%s:8080/", ip);
     }
 
