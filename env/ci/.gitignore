@@ -1,3 +1,3 @@
-# /jenkins_home
+/jenkins_home
 !/jenkins_home/jobs/java-odf-edit-sample/config.xml
 !/jenkins_home/jobs/java-odf-edit-sample/jobs/test-ut-and-it/config.xml
