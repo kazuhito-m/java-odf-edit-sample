@@ -28,13 +28,16 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 以下を前提とします。
 
 - JDK11インストール
+- docker & docker-compose がインストールされている
 
 ### Build and Run
 
 - PostgresのDBを用意
-    + [DBの用意手順(with Docker)](./INITIAL_DATABASE.md)
-- SpringBootのアプリ起動コマンドを叩く
+```bash
+./env/local/postgres/start.sh
 ```
+- SpringBootのアプリ起動コマンドを叩く
+```bash
 ./gradlew clean bootRun
 ```
 - ブラウザからURLを指定
@@ -42,9 +45,18 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 ### Test
 
-```
+```bash
 ./gradlew clean check
 ```
+
+### CI Server
+
+```bash
+./env/ci/start.sh
+```
+
+上記を実行した際、コンソールに表示されるメッセージに従ってください。
+
 
 ## Author
 
