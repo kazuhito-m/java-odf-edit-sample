@@ -21,7 +21,7 @@ pipeline {
         stage('Build need container images') {
             steps {
                 script {
-                    dbImage = docker.build('postgres-for-test', './p1/env/local/postgres')
+                    dbImage = docker.build('postgres-for-test', './env/local/postgres')
                 }
             }
         }
