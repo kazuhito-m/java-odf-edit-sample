@@ -17,7 +17,7 @@ if [ ! ${result} = 0 ]; then
   exit ${result}
 fi
 
-sleep 10
+sleep 30
 echo '起動成功。'
 
 # 起動が上手く行ったようなら、初期パスワードを表示する(取れないなら何も表示せず終わる)
