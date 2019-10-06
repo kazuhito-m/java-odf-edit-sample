@@ -53,7 +53,7 @@ pipeline {
                     sh "SPRING_DATASOURCE_URL=jdbc:postgresql://${dbIp}:5432/odf_edit_sample " +
                             "REMOTE_SELENIUM_HOST=${seleniumIp} " +
                             './gradlew integrationTest jacocoTestReport'
-                    }
+                }
             }
         }
     }
@@ -61,7 +61,7 @@ pipeline {
         failure {
             script {
                 def message = "${PRODUCT_NAME} のテストが失敗しました。 - 失敗の原因を確認してください。:${env.JOB_URL}"
-                showInfomation(message, 'danger', SLACK_CHANNEL, SLACK_DOMAIN, SLACK_TOKEN, SLACK_MSG_HEAD)
+                showInformation(message, 'danger', SLACK_CHANNEL, SLACK_DOMAIN, SLACK_TOKEN, SLACK_MSG_HEAD)
             }
         }
         always {
@@ -70,8 +70,8 @@ pipeline {
                 if (dbContainer2) dbContainer2.stop()
                 if (seleniumContainer) seleniumContainer.stop()
             }
-            step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml', allowEmptyArchive: true])
-            step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/integrationTest/*.xml', allowEmptyArchive: true])
+            step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
+            step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/integrationTest/*.xml'])
             archiveArtifacts artifacts: 'build/reports/tests/integrationTest/snapshots/**', allowEmptyArchive: true
             // TODO CI側にPlugin入れるAsCodeする。
             // step([$class: 'JacocoPublisher', execPattern: '**/build/jacoco/*.exec', classPattern: 'build/classes/main', sourcePattern: 'src/main/java'])
@@ -89,9 +89,9 @@ def ipAddressOf(container) {
 /**
  * Slack&コンソールにメッセージを表示する。
  */
-def showInfomation(message, color, channel, domain, taken, header) {
-    if (SLACK_CHANNEL == '') return
+def showInformation(message, color, channel, domain, taken, header) {
     def caption = header + message
     echo caption
+    if (SLACK_CHANNEL == '') return
     slackSend channel: channel, color: color, message: caption, teamDomain: domain, token: taken
 }
