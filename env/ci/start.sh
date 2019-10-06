@@ -27,3 +27,5 @@ if [ ! ${?} = 0 ]; then
 fi
 echo '初期ログイン用パスワード'
 docker-compose logs | grep -B5 '/var/jenkins_home/secrets/initialAdminPassword'
+echo 'ログイン＆初期化処理後、一度コンテナを再起動してください。'
+echo '  docker restart jenkins-for-java-odf-edit-sample'
