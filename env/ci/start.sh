@@ -17,15 +17,4 @@ if [ ! ${result} = 0 ]; then
   exit ${result}
 fi
 
-sleep 30
 echo '起動成功。'
-
-# 起動が上手く行ったようなら、初期パスワードを表示する(取れないなら何も表示せず終わる)
-docker-compose logs | grep '/var/jenkins_home/secrets/initialAdminPassword' > /dev/null
-if [ ! ${?} = 0 ]; then
-  exit 0
-fi
-echo '初期ログイン用パスワード'
-docker-compose logs | grep -B5 '/var/jenkins_home/secrets/initialAdminPassword'
-echo 'ログイン＆初期化処理後、一度コンテナを再起動してください。'
-echo '  docker restart jenkins-for-java-odf-edit-sample'
