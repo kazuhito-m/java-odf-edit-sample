@@ -3,11 +3,17 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:11-jdk
+      - image: circleci/postgres:11-alpine-ram
         environment:
           TERM: dumb
           TZ: Asia/Tokyo
     steps:
       - checkout
+      - run:
+          name: データベースの初期化
+          command: |
+            cat /etc/*release
+            psql --version
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
       - run:
