@@ -14,6 +14,7 @@ jobs:
       - run:
           name: データベースの初期化
           command: |
+            sudo rm -rf /var/lib/apt/lists/*
             sudo apt-get update
             sudo apt-cache search postgresql-client
       - restore_cache:
