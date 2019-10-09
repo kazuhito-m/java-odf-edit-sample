@@ -12,8 +12,8 @@ jobs:
       - run:
           name: データベースの初期化
           command: |
-            cat /etc/*release
-            psql --version
+            sudo apt-get install postgresql-client
+            psql -d postgresql://root@localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
       - run:
