@@ -12,7 +12,7 @@ jobs:
       - run:
           name: データベースの初期化
           command: |
-            sudo apt-get install postgresql-client-11
+            sudo apt-get install postgresql-client-9
             psql -d postgresql://root@localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
