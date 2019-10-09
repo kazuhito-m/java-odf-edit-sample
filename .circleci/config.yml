@@ -3,9 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:11-jdk
-      - image: circleci/postgres:11-alpine-ram
         environment:
           TERM: dumb
+          TZ: Asia/Tokyo
+      - image: circleci/postgres:12-beta1-alpine-ram
+        environment:
           TZ: Asia/Tokyo
     steps:
       - checkout
@@ -14,7 +16,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install postgresql-client-9.6
-            psql -d postgresql://root@localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
+            psql -d postgresql://localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
       - run:
