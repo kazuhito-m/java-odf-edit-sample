@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:11-jdk
         environment:
           TERM: dumb
           TZ: Asia/Tokyo
@@ -17,14 +17,6 @@ jobs:
           path: ./build/test-results
       - store_artifacts:
           path: ./build/reports
-      - run:
-          name: PlantUMLのクラス図の画像を生成・保存
-          command: |
-            sudo apt-get install -y graphviz
-            ./.purc/plantuml-reverce-class-diaglam.sh
-          when: always
-      - store_artifacts:
-          path: ./.purc/class-diagrams
       - save_cache:
           paths:
             - ~/.gradle
@@ -41,7 +33,7 @@ jobs:
       - deploy:
           name: SonarScanerを実行、結果をSonarCloudに送る
           command: |
-            ./gradlew sonarqube -Dsonar.organization=kazuhito-m-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONARCLOUD_KEY}
+            ./gradlew sonarqube -Dsonar.organization=kazuhito-m-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONARCLOUD_KEY} -x test
 workflows:
   version: 2
   build_and_test:
