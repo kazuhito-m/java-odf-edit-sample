@@ -17,7 +17,7 @@ jobs:
             sudo rm -rf /var/lib/apt/lists/*
             sudo apt-get update
             sudo apt-get install postgresql-client-9.6
-            psql -d postgresql://localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
+            psql -d postgresql://root@localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
       - run:
