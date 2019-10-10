@@ -49,10 +49,10 @@ jobs:
           TZ: Asia/Tokyo
     steps:
       - setup_remote_docker
-      - restore_cache:
-          key: gradle-{{ checksum "build.gradle" }}
       - attach_workspace:
           at: ./
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle" }}
       - run:
           name: ファイルがあるかを確認
           command: find .
