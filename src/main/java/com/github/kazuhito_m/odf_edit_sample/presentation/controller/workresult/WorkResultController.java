@@ -7,15 +7,14 @@ import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.presentation.view.workresult.ConditionForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class WorkResultController {
-
     private final WorkResultService service;
 
     @ModelAttribute("months")
@@ -40,12 +39,12 @@ public class WorkResultController {
         return Application.VERSION;
     }
 
-    @RequestMapping({"/", "/workresult"})
+    @GetMapping({"/", "/workresult"})
     public String workResult() {
         return "workresult";
     }
 
-    @RequestMapping({"/dlworkresult"})
+    @GetMapping({"/dlworkresult"})
     public ResponseEntity<byte[]> dlWorkresult(@ModelAttribute("form") ConditionForm form) throws IOException {
         // ファイルを作成。
         String month = form.getMonth();
@@ -55,5 +54,4 @@ public class WorkResultController {
     public WorkResultController(WorkResultService service) {
         this.service = service;
     }
-
 }
