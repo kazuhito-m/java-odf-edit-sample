@@ -53,9 +53,6 @@ jobs:
           at: ./
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
-      - run:
-          name: ファイルがあるかを確認
-          command: find .
       - deploy:
           name: SonarScanerを実行、結果をSonarCloudに送る
           command: |
