@@ -60,7 +60,6 @@ jobs:
               -Dsonar.organization=kazuhito-m \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=$SONARCLOUD_KEY \
-              -Dsonar.projectKey=java-odf-edit-sample \
               -Dsonar.java.binaries=./build/classes/java/main \
               --debug \
               -x test
