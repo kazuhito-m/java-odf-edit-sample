@@ -49,6 +49,8 @@ jobs:
           TZ: Asia/Tokyo
     steps:
       - setup_remote_docker
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle" }}
       - attach_workspace:
           at: ./
       - run:
@@ -62,7 +64,6 @@ jobs:
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=${SONARCLOUD_KEY} \
               -Dsonar.java.binaries=./build/classes/java/main \
-              --stacktrace \
               -x test
 workflows:
   version: 2
