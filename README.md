@@ -7,6 +7,7 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 + Wercker : [![wercker status](https://app.wercker.com/status/220acd08eb808b9ba686d1130ae5d1bd/s/ "wercker status")](https://app.wercker.com/project/byKey/220acd08eb808b9ba686d1130ae5d1bd)
 + CircleCI : [![CircleCI](https://circleci.com/gh/kazuhito-m/java-odf-edit-sample.svg?style=svg)](https://circleci.com/gh/kazuhito-m/java-odf-edit-sample)
++ SonarCloud: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=java-odf-edit-sample&metric=alert_status)](https://sonarcloud.io/dashboard?id=java-odf-edit-sample)
 
 ## What's this ?
 
