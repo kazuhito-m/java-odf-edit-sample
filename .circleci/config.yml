@@ -30,7 +30,12 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - *
+            - build
+            - build.gradle
+            - gradle
+            - gradlew
+            - setting.gradle
+            - src
       - save_cache:
           paths:
             - ~/.gradle
