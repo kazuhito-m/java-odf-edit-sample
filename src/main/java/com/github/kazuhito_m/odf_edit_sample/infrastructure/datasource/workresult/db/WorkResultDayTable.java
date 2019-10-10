@@ -35,8 +35,6 @@ public class WorkResultDayTable {
 
     public WorkResultDay toDomain() {
         return new WorkResultDay(
-                id,
-                userId,
                 // FIXME 9時間ズレ的なおかしなことになるので、日付整え処理。
                 DateUtils.timeTruncate(resultDate),
                 startTime,
