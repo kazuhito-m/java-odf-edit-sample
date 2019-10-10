@@ -62,6 +62,7 @@ jobs:
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=${SONARCLOUD_KEY} \
               -Dsonar.java.binaries=./build/classes/java/main \
+              --stacktrace \
               -x test
 workflows:
   version: 2
