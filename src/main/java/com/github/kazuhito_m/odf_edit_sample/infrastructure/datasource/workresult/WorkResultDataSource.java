@@ -6,6 +6,7 @@ import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultReposit
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResultRow;
 import com.github.kazuhito_m.odf_edit_sample.domain.workresult.WorkResults;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.db.WorkResultDayDao;
+import com.github.kazuhito_m.odf_edit_sample.infrastructure.datasource.workresult.db.WorkResultDayTable;
 import com.github.kazuhito_m.odf_edit_sample.infrastructure.fw.util.DateUtils;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,6 @@ import static java.util.stream.Collectors.toList;
 
 @Repository
 public class WorkResultDataSource implements WorkResultRepository {
-
     private final WorkResultDayDao workResultDayDao;
 
     @Override
@@ -31,7 +31,7 @@ public class WorkResultDataSource implements WorkResultRepository {
             // DBから勤怠履歴データ取得。
             List<WorkResultDay> days = workResultDayDao.selectByUserAndDay(user.getId(), new java.sql.Date(firstDay.getTime()), new java.sql.Date(lastDay.getTime()))
                     .stream()
-                    .map(d -> d.toDomain())
+                    .map(WorkResultDayTable::toDomain)
                     .collect(toList());
 
             // 空っぽの「1日〜月末」までの表示行を作成。
@@ -54,13 +54,13 @@ public class WorkResultDataSource implements WorkResultRepository {
 
     @Override
     public List<WorkResultDay> findWorkResultDaysBy(User user) {
-        return workResultDayDao.selectByUser(user.getId()).stream()
-                .map(d -> d.toDomain())
+        return workResultDayDao.selectByUser(user.getId())
+                .stream()
+                .map(WorkResultDayTable::toDomain)
                 .collect(toList());
     }
 
     public WorkResultDataSource(WorkResultDayDao workResultDayDao) {
         this.workResultDayDao = workResultDayDao;
     }
-
 }
