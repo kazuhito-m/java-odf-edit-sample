@@ -58,7 +58,7 @@ jobs:
           name: SonarScanerを実行、結果をSonarCloudに送る
           command: |
             ./gradlew sonarqube \
-              -Dsonar.organization=kazuhito-m-github \
+              -Dsonar.organization=kazuhito-m \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=${SONARCLOUD_KEY} \
               -Dsonar.java.binaries=./build/classes/java/main \
