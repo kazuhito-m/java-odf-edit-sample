@@ -15,6 +15,9 @@ plugins {
     id "org.sonarqube" version "2.7.1"
 }
 
+group = 'com.github.kazuhito_m'
+version = '0.0.1-SNAPSHOT'
+
 jigReports.dependsOn(clean, compileJava, processResources)
 bootRun.mustRunAfter(clean)
 
