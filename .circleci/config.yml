@@ -35,7 +35,7 @@ jobs:
             - build.gradle
             - gradle
             - gradlew
-            - setting.gradle
+            - settings.gradle
             - src
       - save_cache:
           paths:
