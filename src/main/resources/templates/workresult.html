@@ -28,7 +28,7 @@
             <h2>Work Result List</h2>
         </div>
 
-        <form th:action="@{/workresult}" th:object="${form}" method="post" class="well form-inline"
+        <form th:action="@{/workresult}" th:object="${form}" method="GET" class="well form-inline"
               name="wrcond">
             User <input type="text" disabled="disabled" name="userCaption" th:field="${currentUser.summary}"/> Month :
             <select class="form-control" th:field="*{month}" id="monthSelect">
@@ -92,6 +92,7 @@ $(function($) {
         return false;
     });
 });
+
 
 
 
