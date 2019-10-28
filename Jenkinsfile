@@ -1,7 +1,7 @@
 final PRODUCT_NAME = 'java-odf-edit-sample'
 
 final JAVA_CONTAINER_TAG = 'openjdk:11.0.4-jdk-slim'
-final SELENIUM_CONTAINER_TAG = 'selenium/standalone-chrome:3.141.59-vanadium'
+final SELENIUM_CONTAINER_TAG = 'kazuhito/selenium-with-record-movie-standalone-chrome-debug'
 
 final SLACK_CHANNEL = ''
 final SLACK_DOMAIN = ''
