@@ -49,11 +49,15 @@ pipeline {
                     dbIp = ipAddressOf(dbContainer2)
                 }
 
+		sh "docker exec ${seleniumContainer.id} start-recording"
+
                 withDockerContainer(image: JAVA_CONTAINER_TAG) {
                     sh "SPRING_DATASOURCE_URL=jdbc:postgresql://${dbIp}:5432/odf_edit_sample " +
                             "REMOTE_SELENIUM_HOST=${seleniumIp} " +
                             './gradlew integrationTest jacocoTestReport'
                 }
+
+		sh "docker exec ${seleniumContainer.id} end-recording"
             }
         }
     }
@@ -68,11 +72,15 @@ pipeline {
             script {
                 if (dbContainer) dbContainer.stop()
                 if (dbContainer2) dbContainer2.stop()
-                if (seleniumContainer) seleniumContainer.stop()
+                if (seleniumContainer) {
+		    sh "docker exec ${seleniumContainer.id} end-recording"
+		    seleniumContainer.stop()
+		}
             }
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/integrationTest/*.xml'])
             archiveArtifacts artifacts: 'build/reports/tests/integrationTest/snapshots/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: '*.ogv', allowEmptyArchive: true
             // TODO CI側にPlugin入れるAsCodeする。
             // step([$class: 'JacocoPublisher', execPattern: '**/build/jacoco/*.exec', classPattern: 'build/classes/main', sourcePattern: 'src/main/java'])
             // TODO JIGを入れられるようになれば保存する。
