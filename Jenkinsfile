@@ -43,7 +43,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 script {
-                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run()
+                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run("-v ${currentDir()}:/output")
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
@@ -99,4 +99,11 @@ def showInformation(message, color, channel, domain, taken, header) {
     echo caption
     if (SLACK_CHANNEL == '') return
     slackSend channel: channel, color: color, message: caption, teamDomain: domain, token: taken
+}
+
+/**
+ * 現在実行しているカレントディレクトリを取得。
+ */
+def currentDirectory() {
+    return new File(".").getAbsolutePath()
 }
