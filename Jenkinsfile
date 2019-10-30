@@ -72,10 +72,7 @@ pipeline {
             script {
                 if (dbContainer) dbContainer.stop()
                 if (dbContainer2) dbContainer2.stop()
-                if (seleniumContainer) {
-		    sh "docker exec ${seleniumContainer.id} end-recording"
-		    seleniumContainer.stop()
-		}
+                if (seleniumContainer) seleniumContainer.stop()
             }
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/integrationTest/*.xml'])
