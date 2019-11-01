@@ -43,7 +43,8 @@ pipeline {
         stage('Integration test') {
             steps {
                 script {
-                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run("-v `pwd`:/output")
+		    sh 'mkdir ./output && chmod 777 ./output'
+                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run("-v `pwd`/output:/output")
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
@@ -77,7 +78,7 @@ pipeline {
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/integrationTest/*.xml'])
             archiveArtifacts artifacts: 'build/reports/tests/integrationTest/snapshots/**', allowEmptyArchive: true
-            archiveArtifacts artifacts: '*.ogv', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'output/*.ogv', allowEmptyArchive: true
             // TODO CI側にPlugin入れるAsCodeする。
             // step([$class: 'JacocoPublisher', execPattern: '**/build/jacoco/*.exec', classPattern: 'build/classes/main', sourcePattern: 'src/main/java'])
             // TODO JIGを入れられるようになれば保存する。
