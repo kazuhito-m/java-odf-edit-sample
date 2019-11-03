@@ -43,8 +43,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 script {
-		    sh 'touch ./test-evidence.ogv && chmod 777 ./*.ogv'
-                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run("-v `pwd`:/output")
+                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run()
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
@@ -59,6 +58,7 @@ pipeline {
                 }
 
 		sh "docker exec ${seleniumContainer.id} end-recording"
+		sh "docker cp ${seleniumContainer.id}:/output/test-evidence.ogv ./"
             }
         }
     }
