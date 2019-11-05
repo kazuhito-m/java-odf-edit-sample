@@ -8,6 +8,8 @@ final SLACK_DOMAIN = ''
 final SLACK_TOKEN = ''
 final SLACK_MSG_HEAD = ''
 
+final RECORDING_WAIT_SECCOND = 140
+
 def dbImage = null
 def dbContainer = null
 def dbContainer2 = null
@@ -43,7 +45,8 @@ pipeline {
         stage('Integration test') {
             steps {
                 script {
-                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run('-e RECORDING_WAIT_SECCOND=120')
+                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG)
+		        .run("-e RECORDING_WAIT_SECCOND=${RECORDING_WAIT_SECCOND}")
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
