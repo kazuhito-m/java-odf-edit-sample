@@ -43,7 +43,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 script {
-                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run()
+                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run('-e RECORDING_WAIT_SECCOND=120')
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
