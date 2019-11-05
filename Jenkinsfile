@@ -49,7 +49,11 @@ pipeline {
                     dbIp = ipAddressOf(dbContainer2)
                 }
 
-		sh "docker exec ${seleniumContainer.id} start-recording"
+                withDockerContainer(image: JAVA_CONTAINER_TAG) {
+                    sh './gradlew integrationTestClasses' // 即テストを始められるように、予めコンパイルをしておく
+                }
+
+                sh "docker exec ${seleniumContainer.id} start-recording"
 
                 withDockerContainer(image: JAVA_CONTAINER_TAG) {
                     sh "SPRING_DATASOURCE_URL=jdbc:postgresql://${dbIp}:5432/odf_edit_sample " +
