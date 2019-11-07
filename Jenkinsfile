@@ -1,14 +1,14 @@
 final PRODUCT_NAME = 'java-odf-edit-sample'
 
 final JAVA_CONTAINER_TAG = 'openjdk:11.0.4-jdk-slim'
-final SELENIUM_CONTAINER_TAG = 'kazuhito/selenium-with-record-movie-standalone-chrome-debug'
+final SELENIUM_CONTAINER_TAG = 'kazuhito/selenium-with-record-movie-standalone-chrome-debug:0.0.2'
 
 final SLACK_CHANNEL = ''
 final SLACK_DOMAIN = ''
 final SLACK_TOKEN = ''
 final SLACK_MSG_HEAD = ''
 
-final RECORDING_WAIT_SECCOND = 140
+final RECORDING_WAIT_SECOND = 140
 
 def dbImage = null
 def dbContainer = null
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG)
-		        .run("-e RECORDING_WAIT_SECCOND=${RECORDING_WAIT_SECCOND}")
+		        .run("-e RECORDING_WAIT_SECOND=${RECORDING_WAIT_SECOND}")
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
