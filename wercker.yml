@@ -1,4 +1,4 @@
-box: java
+box: openjdk:11.0.4-jdk-slim
 build:
   steps:
     - script:
