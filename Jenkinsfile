@@ -8,7 +8,7 @@ final SLACK_DOMAIN = ''
 final SLACK_TOKEN = ''
 final SLACK_MSG_HEAD = ''
 
-final RECORDING_WAIT_SECOND = 140
+final RECORDING_WAIT_SECOND = 150
 
 def dbImage = null
 def dbContainer = null
@@ -50,10 +50,6 @@ pipeline {
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
-                }
-
-                withDockerContainer(image: JAVA_CONTAINER_TAG) {
-                    sh './gradlew integrationTestClasses' // 即テストを始められるように、予めコンパイルをしておく
                 }
 
                 sh "docker exec ${seleniumContainer.id} start-recording"
