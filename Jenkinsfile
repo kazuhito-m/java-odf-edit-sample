@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG)
-		        .run("-e RECORDING_WAIT_SECOND=${RECORDING_WAIT_SECOND}")
+                        .run("-e RECORDING_WAIT_SECOND=${RECORDING_WAIT_SECOND}")
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
@@ -60,8 +60,8 @@ pipeline {
                             './gradlew integrationTest jacocoTestReport'
                 }
 
-		sh "docker exec ${seleniumContainer.id} end-recording"
-		sh "docker cp ${seleniumContainer.id}:/output/test-evidence.ogv ./"
+                sh "docker exec ${seleniumContainer.id} end-recording"
+                sh "docker cp ${seleniumContainer.id}:/output/test-evidence.ogv ./"
             }
         }
     }
