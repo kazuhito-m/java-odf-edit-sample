@@ -1,12 +1,14 @@
 final PRODUCT_NAME = 'java-odf-edit-sample'
 
 final JAVA_CONTAINER_TAG = 'openjdk:11.0.4-jdk-slim'
-final SELENIUM_CONTAINER_TAG = 'selenium/standalone-chrome:3.141.59-vanadium'
+final SELENIUM_CONTAINER_TAG = 'kazuhito/selenium-with-record-movie-standalone-chrome-debug:0.0.2'
 
 final SLACK_CHANNEL = ''
 final SLACK_DOMAIN = ''
 final SLACK_TOKEN = ''
 final SLACK_MSG_HEAD = ''
+
+final RECORDING_WAIT_SECOND = 150
 
 def dbImage = null
 def dbContainer = null
@@ -43,17 +45,23 @@ pipeline {
         stage('Integration test') {
             steps {
                 script {
-                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG).run()
+                    seleniumContainer = docker.image(SELENIUM_CONTAINER_TAG)
+                        .run("-e RECORDING_WAIT_SECOND=${RECORDING_WAIT_SECOND}")
                     seleniumIp = ipAddressOf(seleniumContainer)
                     dbContainer2 = dbImage.run()
                     dbIp = ipAddressOf(dbContainer2)
                 }
+
+                sh "docker exec ${seleniumContainer.id} start-recording"
 
                 withDockerContainer(image: JAVA_CONTAINER_TAG) {
                     sh "SPRING_DATASOURCE_URL=jdbc:postgresql://${dbIp}:5432/odf_edit_sample " +
                             "REMOTE_SELENIUM_HOST=${seleniumIp} " +
                             './gradlew integrationTest jacocoTestReport'
                 }
+
+                sh "docker exec ${seleniumContainer.id} end-recording"
+                sh "docker cp ${seleniumContainer.id}:/output/test-evidence.ogv ./"
             }
         }
     }
@@ -73,6 +81,7 @@ pipeline {
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
             step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/integrationTest/*.xml'])
             archiveArtifacts artifacts: 'build/reports/tests/integrationTest/snapshots/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: '*.ogv', allowEmptyArchive: true
             // TODO CI側にPlugin入れるAsCodeする。
             // step([$class: 'JacocoPublisher', execPattern: '**/build/jacoco/*.exec', classPattern: 'build/classes/main', sourcePattern: 'src/main/java'])
             // TODO JIGを入れられるようになれば保存する。
@@ -94,4 +103,11 @@ def showInformation(message, color, channel, domain, taken, header) {
     echo caption
     if (SLACK_CHANNEL == '') return
     slackSend channel: channel, color: color, message: caption, teamDomain: domain, token: taken
+}
+
+/**
+ * 現在実行しているカレントディレクトリを取得。
+ */
+def currentDirectory() {
+    return new File(".").getAbsolutePath()
 }
