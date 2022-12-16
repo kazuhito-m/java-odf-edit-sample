@@ -28,7 +28,7 @@ OpenDocument Spreadsheetを使った「帳票テンプレート」サンプル�
 
 以下を前提とします。
 
-- JDK11インストール
+- JDK19インストール
 - docker & docker-compose がインストールされている
 
 ### Build and Run
