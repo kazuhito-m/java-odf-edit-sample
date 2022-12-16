@@ -27,8 +27,9 @@ jobs:
           LC_ALL: ja_JP.UTF-8
           TZ: Asia/Tokyo
         volumes:
-          - /env/local/postgres/init_sql:/docker-entrypoint-initdb.d/
-
+          - ./env/local/postgres/init_sql:/docker-entrypoint-initdb.d/
+        ports:
+          - 5432:5432
     steps:
       - name: コンテナの中身の確認
         run: ls -l /
