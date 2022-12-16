@@ -68,9 +68,7 @@ public class WorkResultsDaoTest {
         // 検証
         assertTrue(actual.size() > 100);  // まあ、ゆうに100件は超えるだろう。
         for (WorkResultDayTable day : actual) {
-            assertEquals(0, day.userId);
+            assertEquals(1, day.userId);
         }
     }
-
-
 }
