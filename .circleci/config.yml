@@ -10,7 +10,7 @@ jobs:
         environment:
           TERM: dumb
           TZ: Asia/Tokyo
-      - image: cimg/postgres:15.0
+      - image: cimg/postgres:15
         environment:
           TZ: Asia/Tokyo
     steps:
