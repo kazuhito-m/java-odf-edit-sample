@@ -72,4 +72,6 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          args: '{{ EVENT_PAYLOAD.repository.full_name }} のテストが失敗しました。\\n\\nUser'
+          args: |
+            {{ EVENT_PAYLOAD.repository.full_name }} のテストが失敗しました。
+            User: Test
