@@ -73,7 +73,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            {{ EVENT_PAYLOAD.repository.full_name }} のテストが失敗しました。
+            {{ GITHUB_REPOSITORY }} のテストが失敗しました。
+            {{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }} を確認して下さい。
             
-            User: Test
+            Developer: Test
+            Branch: {{ GITHUB_BASE_REF }}
             二行改行とかできんの？
