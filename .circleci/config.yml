@@ -1,4 +1,8 @@
-version: 2
+version: 2.1
+
+orbs:
+  discord: antonioned/discord@0.1.0
+
 jobs:
   build:
     docker:
@@ -41,6 +45,11 @@ jobs:
           paths:
             - ~/.gradle
           key: gradle-{{ checksum "build.gradle" }}
+      - discord/status:
+          fail_only: true
+          failure_message: "Triggered User: **${CIRCLE_USERNAME}**\\nBranch: **${CIRCLE_BRANCH}**\\n\\nCircleCI テストに失敗しました。 JOB: **$CIRCLE_JOB**"
+          webhook: "${DISCORD_WEBHOOK}"
+
   static_analyze:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -61,14 +70,21 @@ jobs:
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=${SONARCLOUD_KEY} \
               -x test
+      - discord/status:
+          fail_only: true
+          failure_message: "Triggered User: **${CIRCLE_USERNAME}**\\nBranch: **${CIRCLE_BRANCH}**\\n\\nCircleCI 静的解析に失敗しました。 JOB: **$CIRCLE_JOB**"
+          webhook: "${DISCORD_WEBHOOK}"
+
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - build:
+          context: kazuhito_m-products
       - static_analyze:
           requires:
             - build
           filters:
             branches:
               only: master
+          context: kazuhito_m-products
