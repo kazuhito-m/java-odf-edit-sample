@@ -8,9 +8,6 @@ on:
       - '*'
   pull_request:
 
-environment:
-  name: staging
-
 jobs:
   ci:
     strategy:
