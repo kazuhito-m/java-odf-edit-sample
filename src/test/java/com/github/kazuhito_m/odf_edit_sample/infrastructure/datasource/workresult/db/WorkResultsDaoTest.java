@@ -12,8 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,7 +68,7 @@ public class WorkResultsDaoTest {
         // 検証
         assertTrue(actual.size() > 100);  // まあ、ゆうに100件は超えるだろう。
         for (WorkResultDayTable day : actual) {
-            assertEquals(1, day.userId);
+            assertEquals(0, day.userId);
         }
     }
 
