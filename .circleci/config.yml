@@ -6,11 +6,11 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11-jdk
+      - image: cimg/openjdk:19.0.1
         environment:
           TERM: dumb
           TZ: Asia/Tokyo
-      - image: circleci/postgres:12-beta1-alpine-ram
+      - image: cimg/postgres:15.0
         environment:
           TZ: Asia/Tokyo
     steps:
@@ -20,7 +20,7 @@ jobs:
           command: |
             sudo rm -rf /var/lib/apt/lists/*
             sudo apt-get update
-            sudo apt-get install postgresql-client-9.6
+            sudo apt-get install postgresql-client
             psql -d postgresql://postgres@localhost/circle_test -f ./env/local/postgres/init_sql/01_createdb.sql
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
