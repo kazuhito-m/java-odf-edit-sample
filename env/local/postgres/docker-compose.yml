@@ -1,4 +1,4 @@
-postgres-nwpsapi:
+postgres-odf-edit-sample-db:
   build: "."
   ports:
     - "5432:5432"
