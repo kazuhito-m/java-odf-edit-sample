@@ -1,4 +1,4 @@
-FROM postgres:12.0-alpine
+FROM postgres:15.0-alpine
 
 # タイムゾーン＆ロケール設定。
 RUN apk --update add tzdata && \
