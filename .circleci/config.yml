@@ -52,7 +52,7 @@ jobs:
 
   static_analyze:
     docker:
-      - image: circleci/openjdk:11-jdk
+      - image: cimg/openjdk:19.0.1
         environment:
           TERM: dumb
           TZ: Asia/Tokyo

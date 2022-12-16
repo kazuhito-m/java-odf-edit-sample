@@ -2,7 +2,7 @@ buildscript {
     ext {
         springBootVersion = '2.7.6'
         encoding = 'UTF-8'
-        compatibility = JavaVersion.VERSION_17
+        compatibility = JavaVersion.VERSION_19
     }
 }
 
