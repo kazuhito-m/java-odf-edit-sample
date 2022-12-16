@@ -75,7 +75,4 @@ jobs:
           args: |
             {{ GITHUB_REPOSITORY }} のテストが失敗しました。
             {{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }} を確認して下さい。
-            
-            Developer: Test
-            Branch: {{ GITHUB_BASE_REF }}
-            二行改行とかできんの？
+        if: failure()
