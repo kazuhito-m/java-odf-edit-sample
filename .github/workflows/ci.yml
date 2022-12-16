@@ -54,19 +54,6 @@ jobs:
       - name: Run tests
         run: ./gradlew clean test
 
-      - name: Notify Slack
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          author_name: CI結果 - Java ODF Edit Sample
-          fields: repo,message,commit,author,action,eventName,workflow,pullRequest
-          if_mention: failure
-          mention: 'U0HKET970'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: failure()
-
       - name: Notify Discord
         uses: sarisia/actions-status-discord@v1
         with:
